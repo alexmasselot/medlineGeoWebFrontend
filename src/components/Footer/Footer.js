@@ -5,10 +5,10 @@ import styles from './Footer.css';
 import withViewport from '../../decorators/withViewport';
 import withStyles from '../../decorators/withStyles';
 import Link from '../Link';
+import d3 from 'd3';
 
 @withViewport
-@withStyles(styles)
-class Footer extends Component {
+@withStyles(styles) class Footer extends Component {
 
   static propTypes = {
     viewport: PropTypes.shape({
@@ -18,6 +18,7 @@ class Footer extends Component {
   };
 
   render() {
+
     // This is just an example how one can render CSS
     const { width, height } = this.props.viewport;
     this.renderCss(`.Footer-viewport:after {content:' ${width}x${height}';}`);
