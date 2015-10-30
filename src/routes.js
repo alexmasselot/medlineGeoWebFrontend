@@ -19,9 +19,13 @@ const router = new Router(on => {
   });
 
   on('/hexamap', async () => {
-    return <HexaMapPage paf='le chien'/>
+    setTimeout(function(){HexaMapActionCreators.citationLocatedCountByHexagon(1, 1972);},1000);
+    return <HexaMapPage/>
   });
-
+  on('/hexamap/:year', async (req) => {
+    setTimeout(function(){HexaMapActionCreators.citationLocatedCountByHexagon(1, req.params.year);},1000);
+    return <HexaMapPage/>
+  });
   on('/contact', async () => <ContactPage />);
 
   on('/login', async () => <LoginPage />);
@@ -33,7 +37,6 @@ const router = new Router(on => {
     return content && <ContentPage {...content} />;
   });
 
-  setTimeout(function(){HexaMapActionCreators.citationLocatedCountByHexagon(1.0, 2011);},1000);
 
 
   on('error', (state, error) => state.statusCode === 404 ?
