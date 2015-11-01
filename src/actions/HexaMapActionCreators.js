@@ -3,7 +3,6 @@ import Constants from '../constants/Constants';
 
 export default {
   citationLocatedCountByHexagon(radius, year) {
-    console.log('calling ACTION_CITATION_LOCATED_COUNT_BY_HEXAGON', radius, year);
     dispatcher.dispatch({
       action:{type:Constants.ACTION_CITATION_LOCATED_COUNT_BY_HEXAGON},
       radius:radius,
@@ -12,11 +11,13 @@ export default {
 
   },
 
-  clearList() {
-    console.warn('clearList action not yet implemented...');
+  selectYear(year){
+      dispatcher.dispatch({
+        action:{type:Constants.ACTION_YEAR_SELECTED},
+        year:year
+      })
   },
 
-  completeTask(task) {
-    console.warn('completeTask action not yet implemented...');
-  }
+
+
 };

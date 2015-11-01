@@ -1,0 +1,107 @@
+/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+
+@import '../variables.css';
+
+
+ /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+
+ /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+
+ :root {
+
+   /*
+    * Colors
+    * ======================================================================== */ /* #222 */   /* #404040 */ /* #555 */ /* #777 */ /* #eee */
+
+   /*
+    * Typography
+    * ======================================================================== */
+
+   /*
+    * Layout
+    * ======================================================================== */
+
+   /*
+    * Media queries breakpoints
+    * ======================================================================== */  /* Extra small screen / phone */  /* Small screen / tablet */  /* Medium screen / desktop */ /* Large screen / wide desktop */
+
+   /*
+    * Animations
+    * ======================================================================== */
+
+ }
+
+
+body {
+ -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+
+.horizontal-slider {
+ width: 100%;
+ max-width: 500px;
+ height: 1.3em;
+ //border: 1px solid grey;
+}
+
+.vertical-slider {
+ height: 380px;
+ width: 50px;
+ border: 1px solid grey;
+}
+
+.handle {
+ border-radius:3px;
+ font-size: 0.9em;
+ text-align: center;
+ background-color: #ccc;
+ color: black;
+ cursor: pointer;
+}
+
+.handle.active {
+ background-color: lightgrey;
+}
+
+.bar {
+ position: relative;
+ background: #ddd;
+}
+
+.bar.bar-1 {
+ background: #f00;
+}
+
+.bar.bar-2 {
+ background: #0f0;
+}
+
+.horizontal-slider .bar {
+ top: 20px;
+ height: 2px;
+}
+
+.horizontal-slider .handle {
+ top: 11px;
+ width: 50px;
+ height: 22px;
+ line-height: 22px;
+}
+
+.vertical-slider .handle {
+ left: 1px;
+ width: 48px;
+ line-height: 50px;
+}
+
+.vertical-slider .bar {
+ left: 20px;
+ width: 10px;
+}
+
+#horizontal-0,
+#horizontal-1, #horizontal-2, #horizontal-3,
+#vertical {
+ margin: 20px 10px;
+}
+

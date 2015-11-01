@@ -14,20 +14,31 @@ const store = assign({}, BaseStore, {
     getData() {
       return _data;
     },
+
+    /**
+      load count data for a given radius + year, update the model and fire change event
+    */
+    getCount(radius, year){
+      return httpClient.get('http://localhost:9000/citation-located/countByHexagon/' + radius + '?year=' + year)
+      .then(function (data) {
+                  _data.radius = radius;
+                  _data.year = year;
+                  _data.hexaCounts = data;
+                  store.emitChange();
+                });
+    },
+
     dispatcherIndex: dispatcher.register(function (payload) {
+      let _this = this;
       let action = payload.action;
 
       switch (action.type) {
         case Constants.ACTION_CITATION_LOCATED_COUNT_BY_HEXAGON:
-          let radius = parseInt(payload.radius);
-          let year = parseInt(payload.year);
+          store.getCount(parseInt(payload.radius), parseInt(payload.year))
+          break;
 
-          httpClient.get('http://localhost:9000/citation-located/countByHexagon/' + radius + '?year=' + year).then(function (data) {
-            _data.radius = radius;
-            _data.year = year;
-            _data.hexaCounts = data;
-            store.emitChange();
-          });
+        case Constants.ACTION_YEAR_SELECTED:
+          store.getCount(_data.radius, parseInt(payload.year))
           break;
 
         // add more cases for other actionTypes...

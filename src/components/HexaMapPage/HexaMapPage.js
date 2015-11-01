@@ -5,6 +5,7 @@ import styles from './HexaMapPage.css';
 import withStyles from '../../decorators/withStyles';
 import hexaCountStore from '../../stores/HexaCountStore';
 import HexaMap from '../HexaMap/HexaMap';
+import YearSlider from '../YearSlider/YearSlider';
 
 @withStyles(styles)
 class HexaMapPage extends Component {
@@ -38,7 +39,10 @@ class HexaMapPage extends Component {
 
     this.context.onSetTitle(title);
     return (
+
       <div className="HexaMap">
+
+        <YearSlider minYear={1945} maxYear={2014}/>
         <div className="HexaMap-container">
           <HexaMap height="700" width="960"/>
         </div>

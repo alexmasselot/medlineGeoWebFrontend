@@ -120,6 +120,7 @@ var update = function (props) {
       .value();
 
     var color = d3.scale.log().domain([1, maxCount]).range(["blue", "red"])
+    _this._gHexagons.selectAll('path.count').remove();
     _this._gHexagons.selectAll('path.count')
       .data(features)
       .enter()
