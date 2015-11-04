@@ -5,12 +5,13 @@ import Router from 'react-routing/src/Router';
 import http from './core/HttpClient';
 import App from './components/App';
 import HexaMapPage from './components/HexaMapPage';
+import CountryPage from './components/CountryPage';
 import ContactPage from './components/ContactPage';
 import ContentPage from './components/ContentPage';
 import NotFoundPage from './components/NotFoundPage';
 import ErrorPage from './components/ErrorPage';
 
-import HexaMapActionCreators from './actions/HexaMapActionCreators';
+import ActionCreators from './actions/ActionCreators';
 
 const router = new Router(on => {
   on('*', async (state, next) => {
@@ -19,13 +20,19 @@ const router = new Router(on => {
   });
 
   on('/hexamap', async () => {
-    setTimeout(function(){HexaMapActionCreators.citationLocatedCountByHexagon(1, 1972);},1000);
+    setTimeout(function(){ActionCreators.citationLocatedCountByHexagon(1, 1972);},1000);
     return <HexaMapPage/>
   });
+  on('/country', async () => {
+    setTimeout(function(){ActionCreators.countryCount(2011);},1000);
+    return <CountryPage/>
+  });
+
   on('/hexamap/:year', async (req) => {
-    setTimeout(function(){HexaMapActionCreators.citationLocatedCountByHexagon(1, req.params.year);},1000);
+    setTimeout(function(){ActionCreators.citationLocatedCountByHexagon(1, req.params.year);},1000);
     return <HexaMapPage/>
   });
+
   on('/contact', async () => <ContactPage />);
 
   on('/login', async () => <LoginPage />);

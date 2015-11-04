@@ -11,6 +11,13 @@ export default {
 
   },
 
+    countryCount(year) {
+      dispatcher.dispatch({
+        action:{type:Constants.ACTION_CITATION_LOCATED_COUNT_BY_COUNTRY},
+        year:year
+      })
+    },
+
   selectYear(year){
       dispatcher.dispatch({
         action:{type:Constants.ACTION_YEAR_SELECTED},

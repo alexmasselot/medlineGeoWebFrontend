@@ -1,0 +1,9 @@
+/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+
+@import '../variables.css';
+
+div.country-count-per-year{
+  rect{
+    fill-opacity:0.2;
+  }
+}

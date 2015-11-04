@@ -2,8 +2,7 @@
 
 import React, { PropTypes, Component } from 'react';
 import ReactDOM  from 'react-dom';
-import hexaCountStore from '../../stores/HexaCountStore';
-import HexaMapActionCreators from '../../actions/HexaMapActionCreators';
+import ActionCreators from '../../actions/ActionCreators';
 
 import ReactSlider from 'react-slider';
 import styles from './YearSlider.css';
@@ -20,7 +19,7 @@ import withStyles from '../../decorators/withStyles';
 
   _onChange() {
     var _this = this;
-    let year = hexaCountStore.getData().year;
+    let year = _this.props.store.getData().year;
     _this.setState({
       selectedYear:year,
       localYear:year
@@ -29,28 +28,28 @@ import withStyles from '../../decorators/withStyles';
 
   componentDidMount() {
     var _this = this;
-    hexaCountStore.addChangeListener(function () {
+    _this.props.store.addChangeListener(function () {
       _this._onChange();
     });
   }
 
   componentWillUnmount() {
-    hexaCountStore.removeChangeListener(function () {
+    let _this = this;
+    _this.props.store.removeChangeListener(function () {
       _this._onChange();
     });
   }
 
   handleChange(value){
     let _this = this;
-    console.log(arguments)
-    console.log(this)
     _this.setState({localYear:value})
   }
 
   handleAfterChange(value){
     let _this = this;
-    HexaMapActionCreators.selectYear(value);
+    ActionCreators.selectYear(value);
   }
+
 
   render() {
     var _this = this;

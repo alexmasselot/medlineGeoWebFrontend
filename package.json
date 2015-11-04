@@ -21,6 +21,7 @@
     "json-loader": "^0.5.3",
     "lodash": "^3.10.1",
     "normalize.css": "3.0.3",
+    "nvd3": "^1.8.1",
     "object-assign": "^4.0.1",
     "react": "^0.14.1",
     "react-dom": "^0.14.1",

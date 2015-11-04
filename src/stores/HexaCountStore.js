@@ -19,6 +19,9 @@ const store = assign({}, BaseStore, {
       load count data for a given radius + year, update the model and fire change event
     */
     getCount(radius, year){
+      if(this.countListener()===0){
+        return;
+      }
       return httpClient.get('http://localhost:9000/citation-located/countByHexagon/' + radius + '?year=' + year)
       .then(function (data) {
                   _data.radius = radius;
