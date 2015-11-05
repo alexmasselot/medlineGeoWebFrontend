@@ -42,7 +42,7 @@ class CountryPage extends Component {
 
       <div className="country-count">
 
-        <YearSlider store={countryCountStore} minYear={1945} maxYear={2014}/>
+        <YearSlider store={countryCountStore} minYear={1960} maxYear={2014}/>
         <div className="country-count-container">
           <CountryCountPerYear height="500" width="960"/>
         </div>

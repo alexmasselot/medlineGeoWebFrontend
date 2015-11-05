@@ -42,7 +42,7 @@ class HexaMapPage extends Component {
 
       <div className="HexaMap">
 
-        <YearSlider store={hexaCountStore} minYear={1945} maxYear={2014}/>
+        <YearSlider store={hexaCountStore} minYear={1960} maxYear={2014}/>
         <div className="HexaMap-container">
           <HexaMap height="700" width="960"/>
         </div>
