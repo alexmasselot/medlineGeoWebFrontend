@@ -7,6 +7,7 @@
   },
   "dependencies": {
     "babel": "5.8.23",
+    "bootstrap": "^3.3.5",
     "classnames": "2.1.4",
     "d3": "^3.5.6",
     "d3-geo-projection": "^0.2.15",
@@ -24,6 +25,7 @@
     "nvd3": "^1.8.1",
     "object-assign": "^4.0.1",
     "react": "^0.14.1",
+    "react-bootstrap": "^0.27.3",
     "react-dom": "^0.14.1",
     "react-routing": "0.0.4",
     "react-slider": "^0.6.0",

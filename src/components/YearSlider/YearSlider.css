@@ -36,6 +36,16 @@ body {
  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
+div.year-slider{
+  height:2em;
+}
+div.year-slider > div, div.year-slider > button{
+  float:left;
+  margin-left:0.5em;
+  margin-right:0.5em;
+}
+div.year-slider > button{
+}
 
 .horizontal-slider {
  width: 100%;

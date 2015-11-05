@@ -151,22 +151,23 @@ var update = function (props) {
 
 
     let y0 = _this._scales.y(0);
-    _this.bars = _this._gData.selectAll('rect.country-count').data(_this.count_data);
+    let bars = _this._gData.selectAll('rect.country-count').data(_this.count_data);
+    let flags=_this._gData.selectAll('image.flag').data(_this.count_data);
 
-     _this.bars.exit().transition()
+     bars.exit().transition()
       .duration(300)
       .attr("y", y0)
       .attr("height", 0)
       .style('fill-opacity', 1e-6)
       .remove();
 
-    _this.bars.enter()
+    bars.enter()
       .append('rect')
       .attr({
         class:'country-count'
       });
 
-    _this.bars.transition().duration(300)
+    bars.transition().duration(300)
           .attr({
             x:function(c){
               return _this._scales.x(c.countryIso);
@@ -181,7 +182,6 @@ var update = function (props) {
 
           });
 
-      let flags=_this._gData.selectAll('image.flag').data(_this.count_data);
       flags.enter()
         .append('image')
         .attr({
@@ -193,14 +193,20 @@ var update = function (props) {
           y:y0,
          })
 
-       flags.attr({
-            x:function(c){
-              return _this._scales.x(c.countryIso);
-            },
+       flags.transition()
+        .duration(300)
+        .attr({
+          x:function(c){
+            return _this._scales.x(c.countryIso);
+          },
           width:_this._scales.x.rangeBand(),
           height:_this._scales.x.rangeBand()
         });
-        flags.exit().remove();
+      flags.exit()
+        .transition()
+        .duration(300)
+        .style('fill-opacity', 1e-6)
+        .remove();
 
   }
 
