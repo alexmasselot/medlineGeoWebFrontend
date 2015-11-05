@@ -168,45 +168,50 @@ var update = function (props) {
       });
 
     bars.transition().duration(300)
-          .attr({
-            x:function(c){
-              return _this._scales.x(c.countryIso);
-            },
-            y:function(c){
-              return _this._scales.y(c.countPubmedId);
-            },
-            height:function(c){
-                             return y0-_this._scales.y(c.countPubmedId);
-                           },
-             width:_this._scales.x.rangeBand()
+      .attr({
+        x:function(c){
+          return _this._scales.x(c.countryIso);
+        },
+        y:function(c){
+          return _this._scales.y(c.countPubmedId);
+        },
+        height:function(c){
+         return y0-_this._scales.y(c.countPubmedId);
+        },
+         width:_this._scales.x.rangeBand()
 
-          });
+      });
 
-      flags.enter()
-        .append('image')
-        .attr({
-          class:'flag',
-          'xlink:href':function(c){
-            return 'images/flags_iso/48/'+c.countryIso.toLowerCase()+'.png'
+    flags.enter()
+      .append('image')
+      .attr({
+        class:'flag',
+        'xlink:href':function(c){
+          return 'images/flags_iso/48/'+c.countryIso.toLowerCase()+'.png'
+        },
+        y:y0,
+       })
 
-          },
-          y:y0,
-         })
-
-       flags.transition()
-        .duration(300)
-        .attr({
-          x:function(c){
-            return _this._scales.x(c.countryIso);
-          },
-          width:_this._scales.x.rangeBand(),
-          height:_this._scales.x.rangeBand()
-        });
-      flags.exit()
-        .transition()
-        .duration(300)
-        .style('fill-opacity', 1e-6)
-        .remove();
+    flags
+      .attr({
+        'xlink:href':function(c){
+          return 'images/flags_iso/48/'+c.countryIso.toLowerCase()+'.png'
+        },
+      })
+      .transition()
+      .duration(300)
+      .attr({
+        x:function(c){
+          return _this._scales.x(c.countryIso);
+        },
+        width:_this._scales.x.rangeBand(),
+        height:_this._scales.x.rangeBand()
+      });
+    flags.exit()
+      .transition()
+      .duration(300)
+      .style('fill-opacity', 1e-6)
+      .remove();
 
   }
 
