@@ -1,0 +1,50 @@
+[
+  {
+    "year": 2013,
+    "nbPubmedIds": 37,
+    "countryFrom": "GB",
+    "countryTo": "JP",
+    "nbPubmedIdTotalFrom": 26865,
+    "nbPubmedIdTotalTo": 35282
+  },
+  {
+    "year": 2013,
+    "nbPubmedIds": 79,
+    "countryFrom": "CN",
+    "countryTo": "JP",
+    "nbPubmedIdTotalFrom": 77884,
+    "nbPubmedIdTotalTo": 35282
+  },
+  {
+    "year": 2013,
+    "nbPubmedIds": 54,
+    "countryFrom": "CN",
+    "countryTo": "GB",
+    "nbPubmedIdTotalFrom": 77884,
+    "nbPubmedIdTotalTo": 26865
+  },
+  {
+    "year": 2013,
+    "nbPubmedIds": 186,
+    "countryFrom": "JP",
+    "countryTo": "US",
+    "nbPubmedIdTotalFrom": 35282,
+    "nbPubmedIdTotalTo": 173238
+  },
+  {
+    "year": 2013,
+    "nbPubmedIds": 334,
+    "countryFrom": "GB",
+    "countryTo": "US",
+    "nbPubmedIdTotalFrom": 26865,
+    "nbPubmedIdTotalTo": 173238
+  },
+  {
+    "year": 2013,
+    "nbPubmedIds": 546,
+    "countryFrom": "CN",
+    "countryTo": "US",
+    "nbPubmedIdTotalFrom": 77884,
+    "nbPubmedIdTotalTo": 173238
+  }
+]

@@ -39,9 +39,7 @@ class CountryPage extends Component {
 
     this.context.onSetTitle(title);
     return (
-
       <div className="country-count">
-
         <YearSlider store={countryCountStore} minYear={1960} maxYear={2014}/>
         <div className="country-count-container">
           <CountryCountPerYear height="500" width="960"/>
