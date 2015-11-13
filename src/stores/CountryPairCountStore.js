@@ -42,69 +42,105 @@ const store = assign({}, BaseStore, {
       if(_.size(_data.countPairs)===0){
         return [];
       }
-
-      var countryTot = {};
-      _.each(_data.countPairs, function(cp){
-        countryTot[cp.countryFrom] = cp.nbPubmedIdTotalFrom;
-        countryTot[cp.countryTo] = cp.nbPubmedIdTotalTo;
-      })
+      //console.log('countPairs', _data.countPairs);
 
       /*
       sort the data for the colloboration that represent the most important part of the destination country.
       */
-      var lCounts = _.sortBy(_data.countPairs, function(cp){
-        return - cp.nbPubmedIds/cp.nbPubmedIdTotalTo;
-      });
+      let lCounts = [].concat(_data.countPairs);
       lCounts = lCounts.concat(_.map(lCounts, function(cp){
-          var cp2 = _.clone(cp);
-          cp2.countryTo = cp.countryFrom;
-          cp2.countryFrom = cp.countryTo;
-          cp2.nbPubmedIdTotalFrom = cp.nbPubmedIdTotalTo;
-          cp2.nbPubmedIdTotalTo = cp.nbPubmedIdTotalFrom;
-          return cp2;
-      }));
+                                     var cp2 = _.clone(cp);
+                                     cp2.countryTo = cp.countryFrom;
+                                     cp2.countryFrom = cp.countryTo;
+                                     cp2.nbPubmedIdTotalFrom = cp.nbPubmedIdTotalTo;
+                                     cp2.nbPubmedIdTotalTo = cp.nbPubmedIdTotalFrom;
+                                     return cp2;
+                                 }));
+      lCounts = _.sortBy(lCounts, function(cp){
+        return - cp.nbPubmedIds/cp.nbPubmedIdTotalFrom;
+      });
+//      console.log('lCounts', lCounts.length);
+      lCounts = lCounts;
+      var i = 0;
+      var removeCountryFrom = function(l, iso){
+        return _.filter(l, function(cp){
+           return cp.countryFrom !== iso;
+         })
+      };
       var fHandler = function(acc, hCounts){
-        //console.log('----------- fHandler');
-        //console.log('acc', acc);
+
+
+//        console.log('----------- fHandler');
+//        console.log('acc', acc);
 
         if(hCounts.length === 0){
+//          console.log('empty hcount')
           return acc;
         }
-        //console.log('hCounts', hCounts);
+//        console.log('hCounts');
+//        _.chain(hCounts)
+//         .take(20)
+//         .each(function(c){
+//          console.log('---', c.countryFrom, c.countryTo, c.nbPubmedIds, c.nbPubmedIds/c.nbPubmedIdTotalFrom, c.nbPubmedIds/c.nbPubmedIdTotalTo)
+//         })
+//         .value();
 
         if(acc.length === 0){
-          let initCountry = hCounts[0].countryFrom;
+          let initCountry = hCounts[0].countryTo;
           acc.push(initCountry);
 
-          return fHandler(acc, _.filter(hCounts, function(cp){
-                                         return cp.countryTo !== initCountry;
-                                       }));
+          return fHandler(acc, removeCountryFrom(hCounts, initCountry));
         }
         let leftCountry = acc[0];
-        let leftMostCount = _.find(hCounts, function(cp){return cp.countryFrom === leftCountry});
+        let leftMostCount = _.find(hCounts, function(cp){return cp.countryTo === leftCountry});
         let rightCountry = acc[acc.length-1];
-        let rightMostCount = _.find(hCounts, function(cp){return cp.countryFrom === rightCountry});
+        let rightMostCount = _.find(hCounts, function(cp){return cp.countryTo === rightCountry});
+        let anchorCountry;
+
+//        console.log('<- ->', leftCountry, rightCountry, hCounts.length)
+//        console.log('counts', leftMostCount, rightMostCount);
+//        console.log(leftMostCount === undefined, rightMostCount === undefined)
+
+        //no on points to left or right, we can have some disconnected guys
+        if((leftMostCount === undefined) && (rightMostCount === undefined)){
+//          console.log('disconnected')
+          acc.push(hCounts[0].countryTo);
+          return fHandler(acc, removeCountryFrom(hCounts, hCounts[0].countryTo));
+        }
 
         var closest;
-        if(leftMostCount.nbPubmedIds/leftMostCount.nbPubmedIdTotalTo > rightMostCount.nbPubmedIds/rightMostCount.nbPubmedIdTotalTo){
-           closest = leftMostCount.countryTo;
+        var insertLeft =  (rightMostCount === undefined) ||
+                          ((leftMostCount !== undefined) && (leftMostCount.nbPubmedIds/leftMostCount.nbPubmedIdTotalFrom > rightMostCount.nbPubmedIds/rightMostCount.nbPubmedIdTotalFrom));
+        if(insertLeft){
+           closest = leftMostCount.countryFrom;
+           anchorCountry = leftCountry;
            acc.unshift(closest);
         }else{
-          closest = rightMostCount.countryTo;
+          closest = rightMostCount.countryFrom;
+          anchorCountry = rightCountry;
           acc.push(closest);
         }
-        return fHandler(acc, _.filter(hCounts, function(cp){
-          return cp.countryTo !== closest;
-        }))
+        //console.log('closest', closest)
+        //console.log(acc)
+        i++;
+        if(i>=100){
+          return acc
+        }
+
+//        console.log('removing from', closest, hCounts.length)
+//        console.log(hCounts.length);
+        return fHandler(acc, removeCountryFrom(hCounts, closest));
       };
 
       let ret =  _.map(fHandler([], lCounts), function(iso){
         return {
           countryIso:iso,
-          countTot: _.chain(lCounts).map(function(cp){return (cp.countryFrom === iso)?cp.nbPubmedIdTotalFrom:0;}).sum().value(),
-          counts: _.filter(lCounts, function(cp){ return cp.countryFrom === iso})
+          countPairsTot: _.chain(lCounts).map(function(cp){return (cp.countryFrom === iso)?cp.nbPubmedIds:0;}).sum().value(),
+          countPairs: _.filter(lCounts, function(cp){ return cp.countryFrom === iso}),
+          countTot: _.find(lCounts, function(cp){return cp.countryFrom === iso}).nbPubmedIdTotalFrom
         }
       });
+//      console.log('ret', ret)
       return ret;
     },
 
@@ -112,13 +148,16 @@ const store = assign({}, BaseStore, {
       count per country/year
     */
     getCount(year){
+       var _this = this;
       if(this.countListener()===0){
         return;
       }
-      return httpClient.get('http://localhost:9000/country/count/' + year)
+      //console.log('Damn year', year)
+      return httpClient.get('http://localhost:9000/country-pair/count/' + year)
       .then(function (data) {
                   _data.year = year;
-                  _data.countryCount = data;
+                  //console.log(data)
+                  _this.setCountPairs(data)
                   store.emitChange();
                 });
     },
@@ -128,7 +167,7 @@ const store = assign({}, BaseStore, {
       let action = payload.action;
 
       switch (action.type) {
-        case Constants.ACTION_CITATION_LOCATED_COUNT_BY_COUNTRY:
+        case Constants.ACTION_CITATION_LOCATED_COUNT_BY_COUNTRY_PAIRS:
           store.getCount(parseInt(payload.year))
           break;
 

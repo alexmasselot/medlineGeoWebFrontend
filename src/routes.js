@@ -6,6 +6,7 @@ import http from './core/HttpClient';
 import App from './components/App';
 import HexaMapPage from './components/HexaMapPage';
 import CountryPage from './components/CountryPage';
+import CountryPairsPage from './components/CountryPairsPage';
 import ContactPage from './components/ContactPage';
 import ContentPage from './components/ContentPage';
 import NotFoundPage from './components/NotFoundPage';
@@ -26,6 +27,11 @@ const router = new Router(on => {
   on('/country', async () => {
     setTimeout(function(){ActionCreators.countryCount(2011);},1000);
     return <CountryPage/>
+  });
+
+  on('/country-pairs', async () => {
+    setTimeout(function(){ActionCreators.countryPairsCount(2011);},1000);
+    return <CountryPairsPage/>
   });
 
   on('/hexamap/:year', async (req) => {

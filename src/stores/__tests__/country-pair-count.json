@@ -46,5 +46,13 @@
     "countryTo": "US",
     "nbPubmedIdTotalFrom": 77884,
     "nbPubmedIdTotalTo": 173238
+  },
+  {
+    "year": 2013,
+    "nbPubmedIds": 1,
+    "countryFrom": "XY",
+    "countryTo": "XZ",
+    "nbPubmedIdTotalFrom": 10000,
+    "nbPubmedIdTotalTo": 20000
   }
 ]

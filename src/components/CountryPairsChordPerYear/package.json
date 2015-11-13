@@ -1,0 +1,6 @@
+{
+  "name": "CountryPairsChordPerYear",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./CountryPairsChordPerYear.js"
+}

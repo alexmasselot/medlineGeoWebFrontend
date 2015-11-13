@@ -20,11 +20,11 @@ describe('CountryPairCountStore', function() {
 
  it('lCounts', function(){
     expect(mockData).not.toBeUndefined();
-    expect(mockData.length).toBe(6);
+    expect(mockData.length).toBe(7);
     CountryPairCountStore.setCountPairs(mockData);
 
     expect(CountryPairCountStore.getData().countPairs).not.toBeUndefined();
-    expect(CountryPairCountStore.getData().countPairs.length).toBe(6);
+    expect(CountryPairCountStore.getData().countPairs.length).toBe(7);
  });
 
  describe('getCountrySorted', function(){
@@ -34,15 +34,20 @@ describe('CountryPairCountStore', function() {
     CountryPairCountStore.setCountPairs(mockData);
     countrySorted = CountryPairCountStore.getCountrySorted();
     gb = _.find(countrySorted, function(cp){
-      return cp.iso === 'GB';
+      return cp.countryIso === 'GB';
     })
   });
   it('countryIso', function(){
-    expect (_.pluck(countrySorted, 'countryIso')).toEqual(['JP', 'CN', 'US', 'GB'])
+    expect (_.pluck(countrySorted, 'countryIso')).toEqual(['JP', 'CN', 'US', 'GB', 'XZ', 'XY'])
   });
-  it('totCount', function(){
-    expect(gb.countTot).toBe()
+  it('countPairsTot', function(){
+    expect(gb.countPairsTot).toBe(425);
+  })
+  it('countPairs', function(){
+    expect(gb.countPairs.length).toBe(3);
+  })
+  it('countTot', function(){
+    expect(gb.countTot).toBe(26865);
   })
  });
-
 });
