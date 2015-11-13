@@ -17,7 +17,7 @@ var update = function (props) {
   };
 };
 
-@withStyles(styles) class CountryCountPerYear extends Component {
+@withStyles(styles) class CountryPairsChordPerYear extends Component {
   constructor() {
     super();
 
@@ -29,6 +29,7 @@ var update = function (props) {
     var _this = this;
 
     var countrySorted = CountryPairCountStore.getCountrySorted();
+    var year = CountryPairCountStore.getData().year;
     _this._matrix.length == 0;
     let n = countrySorted.length;
     console.log(countrySorted);
@@ -50,10 +51,9 @@ var update = function (props) {
       })
       .value();
 
-    console.log(_this._matrix);
 
     _this.data = {
-                   year:data.year,
+                   year:year,
                    };
 
     _this.setState({});
@@ -88,19 +88,63 @@ var update = function (props) {
   setupD3(el) {
     var _this = this;
 
+    _this._dim={
+      height : parseInt(_this.props.height),
+      width : parseInt(_this.props.width)
+    };
+    _this._dim.radius  = Math.min(_this._dim.width, _this._dim.height)*0.4;
+
     d3.select(el).selectAll().empty();
     var svg = d3.select(el).append('svg').attr({
-      width: this.props.width,
-      height: this.props.height,
+      width: _this._dim.width,
+      height: _this._dim.height,
       class: 'country-pairs-count-per-year'
     });
 
+    _this._gMain = svg.append('g')
+      .attr({
+        transform:'translate('+(_this._dim.width/2)+', '+(_this._dim.height/2)+')'
+      });
 
+    console.log('THIS setup', _this);
+    _this._svg = svg;
   }
 
   renderD3(el) {
     var _this = this;
+    console.log('THIS render', _this);
 
+    var width = 960,
+    height = 500,
+    innerRadius = _this._dim.radius,
+    outerRadius = innerRadius * 1.1;
+
+    var fill = d3.scale.ordinal()
+    .domain(d3.range(4))
+    .range(["#000000", "#FFDD89", "#957244", "#F26223"]);
+
+    var chord = d3.layout.chord()
+        .padding(.05)
+        .sortSubgroups(d3.descending)
+        .matrix(_this._matrix);
+
+    _this._gMain.append("g").selectAll("path")
+        .data(chord.groups)
+      .enter().append("path")
+        .style("fill", function(d) { return fill(d.index); })
+        .style("stroke", function(d) { return fill(d.index); })
+        .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius))
+        //.on("mouseover", fade(.1))
+        //.on("mouseout", fade(1));
+
+    _this._gMain.append("g")
+        .attr("class", "chord")
+      .selectAll("path")
+        .data(chord.chords)
+      .enter().append("path")
+        .attr("d", d3.svg.chord().radius(innerRadius))
+        .style("fill", function(d) { return fill(d.target.index); })
+        .style("opacity", 1);
 
   }
 
@@ -118,4 +162,4 @@ var update = function (props) {
   }
 }
 
-export default CountryCountPerYear;
+export default CountryPairsChordPerYear;

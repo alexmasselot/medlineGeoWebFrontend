@@ -45,7 +45,7 @@ const store = assign({}, BaseStore, {
       //console.log('countPairs', _data.countPairs);
 
       /*
-      sort the data for the colloboration that represent the most important part of the destination country.
+      sort the data for the collaboration that represent the most important part of the destination country.
       */
       let lCounts = [].concat(_data.countPairs);
       lCounts = lCounts.concat(_.map(lCounts, function(cp){
@@ -56,9 +56,60 @@ const store = assign({}, BaseStore, {
                                      cp2.nbPubmedIdTotalTo = cp.nbPubmedIdTotalFrom;
                                      return cp2;
                                  }));
+
       lCounts = _.sortBy(lCounts, function(cp){
         return - cp.nbPubmedIds/cp.nbPubmedIdTotalFrom;
       });
+      //distCountries ends up, for each country connected, to a sorted list by distance (1/the shared relative number of publications)
+      var distCountries = {};
+      _.chain(lCounts)
+        .each(function(c){
+          var d = (Math.min(c.nbPubmedIdTotalFrom, c.nbPubmedIdTotalTo))/c.nbPubmedIds;
+          if(distCountries[c.countryFrom]===undefined){
+            distCountries[c.countryFrom]= {};
+          }
+          if(distCountries[c.countryTo]===undefined){
+            distCountries[c.countryTo]= {};
+          }
+          distCountries[c.countryFrom][c.countryTo]=d;
+          distCountries[c.countryTo][c.countryFrom]=d;
+        })
+        .value();
+      _.each(_.keys(distCountries), function(x){
+          var a = [];
+          _.each(distCountries[x], function(d, y){
+              a.push({iso:y, dist:d});
+            });
+          distCountries[x] = _.sortBy(a, 'dist');
+      });
+
+
+      var getClosest = function(isos, aNotIn){
+        let notIn = {};
+        _.each(aNotIn, function(x){notIn[x]=true});
+
+        var ret = _.map(isos, function(iso){
+          return _.chain(distCountries[iso], function(e){
+            return notIn[e.iso] === undefined;
+          })
+          .map('iso');
+          .value();
+        });
+        //we have none connect to any isos, so let's pick the one with the shortest distance to someone else;
+        if(ret === undefined){
+          var a=[]
+           _.each(distCountries, function(e, iso){
+              if(notIn[iso] === undefined){
+                a.push({iso:iso, dist:e[0].dist});
+              }
+          });
+          if(a.length>0){
+            ret=_.sortBy('dist')[0].iso;
+          }
+        }
+        return ret;
+      }
+
 //      console.log('lCounts', lCounts.length);
       lCounts = lCounts;
       var i = 0;
@@ -68,7 +119,6 @@ const store = assign({}, BaseStore, {
          })
       };
       var fHandler = function(acc, hCounts){
-
 
 //        console.log('----------- fHandler');
 //        console.log('acc', acc);
