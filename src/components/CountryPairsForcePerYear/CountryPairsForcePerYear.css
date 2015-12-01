@@ -1,0 +1,9 @@
+/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+
+@import '../variables.css';
+
+svg.country-pairs-force-per-year{
+  path.link{
+    stroke:gray;
+  }
+}

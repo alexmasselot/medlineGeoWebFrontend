@@ -23,6 +23,7 @@ var update = function (props) {
 
     this.state={};
     this._matrix=[];
+    this._labels=[];
   }
 
   _onChange() {
@@ -38,6 +39,7 @@ var update = function (props) {
       _.times(n, function(){a.push(0);});
       _this._matrix.push(a);
     });
+    _this._labels=_.pluck(countrySorted, 'countryIso');
 
     var countryRow = {};
     _.each(countrySorted, function(c, i){
@@ -46,6 +48,9 @@ var update = function (props) {
     _.chain(countrySorted)
       .pluck('countPairs')
       .flatten()
+      .filter(function(p){
+        return p.nbPubmedIds >=4;
+      })
       .each(function(p){
         _this._matrix[countryRow[p.countryFrom]][countryRow[p.countryTo]]=p.nbPubmedIds;
       })
@@ -128,13 +133,19 @@ var update = function (props) {
         .sortSubgroups(d3.descending)
         .matrix(_this._matrix);
 
+    var gArcs =
     _this._gMain.append("g").selectAll("path")
         .data(chord.groups)
-      .enter().append("path")
+      .enter();
+
+      gArcs.append("path")
         .style("fill", function(d) { return fill(d.index); })
         .style("stroke", function(d) { return fill(d.index); })
         .attr("d", d3.svg.arc().innerRadius(innerRadius).outerRadius(outerRadius))
-        //.on("mouseover", fade(.1))
+        .attr('class', function(d){return _this._labels[d.index]})
+        .on("mouseover", function(d){
+          console.log(d);
+        })
         //.on("mouseout", fade(1));
 
     _this._gMain.append("g")
@@ -144,7 +155,11 @@ var update = function (props) {
       .enter().append("path")
         .attr("d", d3.svg.chord().radius(innerRadius))
         .style("fill", function(d) { return fill(d.target.index); })
-        .style("opacity", 1);
+        .style("opacity", 1)
+        .on("mouseover", function(d){
+          console.log(d);
+        })
+;
 
   }
 

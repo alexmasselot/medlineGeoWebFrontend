@@ -38,7 +38,7 @@ describe('CountryPairCountStore', function() {
     })
   });
   it('countryIso', function(){
-    expect (_.pluck(countrySorted, 'countryIso')).toEqual(['JP', 'CN', 'US', 'GB', 'XZ', 'XY'])
+    expect (_.pluck(countrySorted, 'countryIso')).toEqual(['JP', 'CN', 'US', 'GB', 'XY', 'XZ'])
   });
   it('countPairsTot', function(){
     expect(gb.countPairsTot).toBe(425);

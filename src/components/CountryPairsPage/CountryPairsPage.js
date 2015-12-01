@@ -4,7 +4,7 @@ import React, { PropTypes, Component } from 'react';
 import styles from './CountryPairsPage.css';
 import withStyles from '../../decorators/withStyles';
 import countryPairCountStore from '../../stores/CountryPairCountStore';
-import CountryPairsChordPerYear from '../CountryPairsChordPerYear/CountryPairsChordPerYear';
+import CountryPairsForcePerYear from '../CountryPairsForcePerYear/CountryPairsForcePerYear';
 import YearSlider from '../YearSlider/YearSlider';
 
 @withStyles(styles)
@@ -42,7 +42,7 @@ class CountryPairsPage extends Component {
       <div className="country-count">
         <YearSlider store={countryPairCountStore} minYear={1960} maxYear={2014}/>
         <div className="country-count-container">
-          <CountryPairsChordPerYear height="500" width="960"/>
+          <CountryPairsForcePerYear height="500" width="960"/>
         </div>
       </div>
     );

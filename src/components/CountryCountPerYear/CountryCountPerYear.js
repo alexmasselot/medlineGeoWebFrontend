@@ -190,7 +190,7 @@ var update = function (props) {
           return 'images/flags_iso/48/'+c.countryIso.toLowerCase()+'.png'
         },
         y:y0,
-       })
+       });
 
     flags
       .attr({

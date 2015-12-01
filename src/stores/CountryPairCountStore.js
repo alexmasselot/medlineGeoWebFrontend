@@ -87,14 +87,25 @@ const store = assign({}, BaseStore, {
       var getClosest = function(isos, aNotIn){
         let notIn = {};
         _.each(aNotIn, function(x){notIn[x]=true});
-
-        var ret = _.map(isos, function(iso){
-          return _.chain(distCountries[iso], function(e){
-            return notIn[e.iso] === undefined;
+        //console.log('notIn', notIn)
+        var ret = _.chain(isos)
+          .map(function(iso){
+            return _.chain(distCountries[iso])
+             .filter(function(e){
+              return notIn[e.iso] === undefined;
+            })
+            .map(function(e){
+              let r=_.clone(e);
+              e.anchor=iso;
+              return e;
+            })
+            .first()
+            .value();
           })
-          .map('iso');
-          .value();
-        });
+         .sortBy('dist')
+         .first()
+         .value();
+         //console.log('ret first', ret);
         //we have none connect to any isos, so let's pick the one with the shortest distance to someone else;
         if(ret === undefined){
           var a=[]
@@ -104,7 +115,7 @@ const store = assign({}, BaseStore, {
               }
           });
           if(a.length>0){
-            ret=_.sortBy('dist')[0].iso;
+            ret=_.sortBy(a, 'dist')[0];
           }
         }
         return ret;
@@ -113,62 +124,28 @@ const store = assign({}, BaseStore, {
 //      console.log('lCounts', lCounts.length);
       lCounts = lCounts;
       var i = 0;
-      var removeCountryFrom = function(l, iso){
-        return _.filter(l, function(cp){
-           return cp.countryFrom !== iso;
-         })
-      };
-      var fHandler = function(acc, hCounts){
+      var fHandler = function(acc){
 
 //        console.log('----------- fHandler');
 //        console.log('acc', acc);
 
-        if(hCounts.length === 0){
-//          console.log('empty hcount')
+        if(acc.length === 0){
+          acc.push(getClosest([], []).iso);
+          return fHandler(acc);
+        }
+
+        let closest = getClosest([acc[0], acc[acc.length-1]], acc);
+        //console.log('closest', closest)
+
+        if(closest === undefined){
           return acc;
         }
-//        console.log('hCounts');
-//        _.chain(hCounts)
-//         .take(20)
-//         .each(function(c){
-//          console.log('---', c.countryFrom, c.countryTo, c.nbPubmedIds, c.nbPubmedIds/c.nbPubmedIdTotalFrom, c.nbPubmedIds/c.nbPubmedIdTotalTo)
-//         })
-//         .value();
-
-        if(acc.length === 0){
-          let initCountry = hCounts[0].countryTo;
-          acc.push(initCountry);
-
-          return fHandler(acc, removeCountryFrom(hCounts, initCountry));
-        }
-        let leftCountry = acc[0];
-        let leftMostCount = _.find(hCounts, function(cp){return cp.countryTo === leftCountry});
-        let rightCountry = acc[acc.length-1];
-        let rightMostCount = _.find(hCounts, function(cp){return cp.countryTo === rightCountry});
-        let anchorCountry;
-
-//        console.log('<- ->', leftCountry, rightCountry, hCounts.length)
-//        console.log('counts', leftMostCount, rightMostCount);
-//        console.log(leftMostCount === undefined, rightMostCount === undefined)
 
         //no on points to left or right, we can have some disconnected guys
-        if((leftMostCount === undefined) && (rightMostCount === undefined)){
-//          console.log('disconnected')
-          acc.push(hCounts[0].countryTo);
-          return fHandler(acc, removeCountryFrom(hCounts, hCounts[0].countryTo));
-        }
-
-        var closest;
-        var insertLeft =  (rightMostCount === undefined) ||
-                          ((leftMostCount !== undefined) && (leftMostCount.nbPubmedIds/leftMostCount.nbPubmedIdTotalFrom > rightMostCount.nbPubmedIds/rightMostCount.nbPubmedIdTotalFrom));
-        if(insertLeft){
-           closest = leftMostCount.countryFrom;
-           anchorCountry = leftCountry;
-           acc.unshift(closest);
+        if(acc[0] === closest.anchor){
+           acc.unshift(closest.iso);
         }else{
-          closest = rightMostCount.countryFrom;
-          anchorCountry = rightCountry;
-          acc.push(closest);
+          acc.push(closest.iso);
         }
         //console.log('closest', closest)
         //console.log(acc)
@@ -179,7 +156,7 @@ const store = assign({}, BaseStore, {
 
 //        console.log('removing from', closest, hCounts.length)
 //        console.log(hCounts.length);
-        return fHandler(acc, removeCountryFrom(hCounts, closest));
+        return fHandler(acc);
       };
 
       let ret =  _.map(fHandler([], lCounts), function(iso){
