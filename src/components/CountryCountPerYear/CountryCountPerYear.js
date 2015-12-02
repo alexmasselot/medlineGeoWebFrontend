@@ -22,6 +22,7 @@ var update = function (props) {
 
     this.state={};
     this.count_data=[];
+    this.labeled_data=[];
     this._maxCountry=30;
   }
 
@@ -64,6 +65,21 @@ var update = function (props) {
     _.each(_.values(h), function(c){
       _this.count_data.push(c);
     });
+
+    _this.labeled_data.length=0;
+    _.chain(_this.count_data)
+      .sortBy(function(c){
+        console.log('c.countPubmedId', c.countPubmedId, c.countPubmedId+0)
+        return -c.countPubmedId;
+      })
+      .take(3)
+      .each(function(c){
+        _this.labeled_data.push(c);
+      })
+      .value();
+
+      console.log(_this.labeled_data)
+
 
     _this.data = {
                    year:data.year,
@@ -118,29 +134,22 @@ var update = function (props) {
       class:'axis x',
       transform:'translate('+margin+', '+h+')'
     });
-     _this._gAxes.y=svg.append('g')
-      .attr({
-        class:'axis y',
-        transform:'translate('+margin+', 0)'
-      });
 
-      _this._scales={
-        x:d3.scale.ordinal().rangeRoundBands([0, w], 0.1),
-        y:d3.scale.linear().range([h, 0])
-      }
+    _this._scales={
+      x:d3.scale.ordinal().rangeRoundBands([0, w], 0.1),
+      y:d3.scale.linear().range([h, 0])
+    }
 
-      _this._gData = svg.append('g').attr({
-        class:'data',
-        transform:'translate('+margin+', 0)'
-      });
+    _this._gData = svg.append('g').attr({
+      class:'data',
+      transform:'translate('+margin+', 0)'
+    });
+    _this._gLabel = _this._gData.append('g').attr('class', 'label');
   }
 
   renderD3(el) {
     var _this = this;
-    _this._scales.y.domain([0, _this.data.maxCount*1.05]);
-    var yAxis = d3.svg.axis().scale(_this._scales.y).orient('left');
-    _this._gAxes.y.call(yAxis);
-
+    _this._scales.y.domain([0, _this.data.maxCount*1.08]);
 
     _this._scales.x.domain(_.chain(_this.count_data).sortBy(function(c){
       return -c.countPubmedId;
@@ -153,6 +162,8 @@ var update = function (props) {
     let y0 = _this._scales.y(0);
     let bars = _this._gData.selectAll('rect.country-count').data(_this.count_data);
     let flags=_this._gData.selectAll('image.flag').data(_this.count_data);
+    let labels = _this._gData.selectAll('text.country-count-label').data(_this.labeled_data);
+    console.log('labeled_data',  _this.labeled_data);
 
      bars.exit().transition()
       .duration(300)
@@ -180,6 +191,38 @@ var update = function (props) {
         },
          width:_this._scales.x.rangeBand()
 
+      });
+
+   labels.exit().transition()
+      .duration(300)
+      .style('fill-opacity', 1e-6)
+      .remove();
+
+    labels.enter()
+      .append('text')
+      .attr({
+        class:'country-count-label'
+      })
+  ;
+
+    labels.transition().duration(300)
+      .attr({
+        x:function(c){
+          return _this._scales.x(c.countryIso) + _this._scales.x.rangeBand()/2;
+        },
+        y:function(c){
+          return _this._scales.y(c.countPubmedId)-2;
+        }
+      })
+      .text(function(c){
+        let n = c.countPubmedId;
+        if(n<1000){
+          return n;
+        }
+        if(n<100000){
+          return ''+(Math.round(n/100)/10)+'k';
+        }
+        return ''+Math.round(n/1000)+'k';
       });
 
     flags.enter()

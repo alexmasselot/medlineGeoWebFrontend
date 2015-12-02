@@ -6,4 +6,9 @@ div.country-count-per-year{
   rect{
     fill-opacity:0.2;
   }
+  text.country-count-label{
+    text-anchor: middle;
+    font-size: 90%;
+  }
 }
+
