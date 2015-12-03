@@ -196,8 +196,7 @@ var update = function (props) {
       .append('text')
       .attr({
         class:'country-count-label'
-      })
-  ;
+  });
 
     labels.transition().duration(300)
       .attr({

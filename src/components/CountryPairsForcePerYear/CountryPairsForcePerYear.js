@@ -163,11 +163,21 @@ var update = function (props) {
     _this._dim.radius  = Math.min(_this._dim.width, _this._dim.height)*0.4;
 
     d3.select(el).selectAll().empty();
-    var svg = d3.select(el).append('svg').attr({
+
+		var zoomed = function() {
+			_this._gMain.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+		}
+    var zoom = d3.behavior.zoom()
+    		    .scaleExtent([1, 10])
+    		    .on("zoom", zoomed);
+
+    _this._svg = d3.select(el).append('svg').attr({
       width: _this._dim.width,
       height: _this._dim.height,
       class: 'country-pairs-force-per-year'
-    });
+    })
+    .call(zoom);
+
 
 
     let d0 = Math.min(_this._dim.width, _this._dim.height)/5;
@@ -176,14 +186,23 @@ var update = function (props) {
         .distance(function(cp){
           return 30+0.15*d0/cp.proximity;
         })
-        .charge(-4*d0)
+        .charge(-5*d0)
         .size([_this._dim.width, _this._dim.height]);
     _this._force.nodes(_this._nodes)
                 .links(_this._links);
 
-    _this._gMain = svg.append('g');
+    _this._gMain = _this._svg.append('g');
     _this._gLinks = _this._gMain.append('g');
     _this._gNodes = _this._gMain.append('g');
+
+
+    var dragStart = function(d) {
+      d3.event.sourceEvent.stopPropagation();
+      d.fixed = true;
+      d3.select(this).classed("fixed",true);
+    }
+    _this._dragNode = _this._force.drag()
+        .on("dragstart", dragStart);
 
   }
 
@@ -193,7 +212,7 @@ var update = function (props) {
       return;
     }
 
-     _this._force.start();
+
 
      var link = _this._gLinks.selectAll("path.link").data(_this._links);
      var node = _this._gNodes.selectAll("g.node").data(_this._nodes);
@@ -205,6 +224,11 @@ var update = function (props) {
        });
 
 
+    var dblclick = function(d) {
+      console.log('dblclick')
+			d3.select(this).classed("fixed", d.fixed = false);
+		}
+
     var fw = function(c){
       return 3+6*Math.log10(c.nbPubmedIds);
      };
@@ -214,9 +238,9 @@ var update = function (props) {
             class:'node'
            })
         .on('mouseover', function(c){
-          console.log(c)
         })
-        .call(_this._force.drag)
+        .on("dblclick", dblclick)
+        .call(_this._dragNode);
 
 
       node.selectAll('image').remove();
@@ -238,7 +262,7 @@ var update = function (props) {
 
      link.exit().remove();
      node.exit().remove();
-
+     _this._force.start();
 
   _this._force.on("tick", function() {
     link.attr(
@@ -268,8 +292,7 @@ var update = function (props) {
   });
 
   _this._force.on('end', function(){
-    console.log('FORCE END');
-    _this._force.friction(0.4);
+    _this._force.friction(0.1);
   })
 
   }
@@ -280,9 +303,6 @@ var update = function (props) {
     var width = _this.props.width || 800;
     var height = _this.props.width || height;
 
-
-
-    var elMain = <svg height={height} width={width}/>;
     return <div className="country-count-per-year">
     </div>;
   }
