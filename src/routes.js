@@ -21,16 +21,16 @@ const router = new Router(on => {
   });
 
   on('/hexamap', async () => {
-    setTimeout(function(){ActionCreators.citationLocatedCountByHexagon(1, 1972);},1000);
+    setTimeout(function(){ActionCreators.citationLocatedCountByHexagon(1, 1989);},200);
     return <HexaMapPage/>
   });
   on('/country', async () => {
-    setTimeout(function(){ActionCreators.countryCount(2011);},1000);
+    setTimeout(function(){ActionCreators.countryCount(1989);},200);
     return <CountryPage/>
   });
 
   on('/country-pairs', async () => {
-    setTimeout(function(){ActionCreators.countryPairsCount(2011);},1000);
+    setTimeout(function(){ActionCreators.countryPairsCount(1989);},200);
     return <CountryPairsPage/>
   });
 

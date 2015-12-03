@@ -12,7 +12,6 @@ import d3 from 'd3';
 
 var update = function (props) {
   return function (me) {
-    me.append('h1').text('TADAAAA')
   };
 };
 
@@ -69,7 +68,6 @@ var update = function (props) {
     _this.labeled_data.length=0;
     _.chain(_this.count_data)
       .sortBy(function(c){
-        console.log('c.countPubmedId', c.countPubmedId, c.countPubmedId+0)
         return -c.countPubmedId;
       })
       .take(3)
@@ -77,9 +75,6 @@ var update = function (props) {
         _this.labeled_data.push(c);
       })
       .value();
-
-      console.log(_this.labeled_data)
-
 
     _this.data = {
                    year:data.year,
@@ -163,7 +158,6 @@ var update = function (props) {
     let bars = _this._gData.selectAll('rect.country-count').data(_this.count_data);
     let flags=_this._gData.selectAll('image.flag').data(_this.count_data);
     let labels = _this._gData.selectAll('text.country-count-label').data(_this.labeled_data);
-    console.log('labeled_data',  _this.labeled_data);
 
      bars.exit().transition()
       .duration(300)

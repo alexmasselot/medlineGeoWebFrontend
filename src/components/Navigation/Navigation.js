@@ -16,7 +16,9 @@ class Navigation extends Component {
   render() {
     return (
       <div className={classNames(this.props.className, 'Navigation')} role="navigation">
-        <a className="Navigation-link" href="/hexamap" onClick={Link.handleClick}>publication </a>
+        <a className="Navigation-link" href="/hexamap" onClick={Link.handleClick}>per location</a>
+        <a className="Navigation-link" href="/country" onClick={Link.handleClick}>per country</a>
+        <a className="Navigation-link" href="/country-pairs" onClick={Link.handleClick}>per collaboration</a>
         <span className="Navigation-spacer"> | </span>
       </div>
     );
