@@ -168,7 +168,7 @@ var update = function (props) {
 			_this._gMain.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
 		}
     var zoom = d3.behavior.zoom()
-    		    .scaleExtent([1, 10])
+    		    .scaleExtent([0.1, 10])
     		    .on("zoom", zoomed);
 
     _this._svg = d3.select(el).append('svg').attr({
