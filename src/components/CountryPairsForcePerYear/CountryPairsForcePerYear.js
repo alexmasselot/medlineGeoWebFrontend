@@ -186,7 +186,7 @@ var update = function (props) {
         .distance(function(cp){
           return 30+0.15*d0/cp.proximity;
         })
-        .charge(-5*d0)
+        .charge(-1000)
         .size([_this._dim.width, _this._dim.height]);
     _this._force.nodes(_this._nodes)
                 .links(_this._links);
@@ -225,7 +225,6 @@ var update = function (props) {
 
 
     var dblclick = function(d) {
-      console.log('dblclick')
 			d3.select(this).classed("fixed", d.fixed = false);
 		}
 
@@ -291,9 +290,12 @@ var update = function (props) {
     node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   });
 
-  _this._force.on('end', function(){
-    _this._force.friction(0.1);
-  })
+//  _this._force.on('end', function(){
+//    _this._force.friction(0.1);
+//  })
+//  _this._force.on('end', function(){
+//    _this._force.friction(0.1);
+//  })
 
   }
 
