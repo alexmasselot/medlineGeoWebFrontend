@@ -10,5 +10,9 @@ div.country-count-per-year{
     text-anchor: middle;
     font-size: 90%;
   }
+  path.domain{
+    fill:none;
+    stroke:black;
+  }
 }
 

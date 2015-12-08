@@ -6,6 +6,7 @@ import withStyles from '../../decorators/withStyles';
 import hexaCountStore from '../../stores/HexaCountStore';
 import HexaMap from '../HexaMap/HexaMap';
 import YearSlider from '../YearSlider/YearSlider';
+import Dimensions from 'react-dimensions';
 
 @withStyles(styles)
 class HexaMapPage extends Component {
@@ -43,7 +44,7 @@ class HexaMapPage extends Component {
 
         <YearSlider store={hexaCountStore} minYear={1960} maxYear={2014}/>
         <div className="HexaMap-container">
-          <HexaMap height="700" width="960"/>
+          <HexaMap height={_this.props.containerHeight} width={_this.props.containerWidth}/>
         </div>
       </div>
     );
@@ -51,4 +52,4 @@ class HexaMapPage extends Component {
 
 }
 
-export default HexaMapPage;
+export default Dimensions()(HexaMapPage);

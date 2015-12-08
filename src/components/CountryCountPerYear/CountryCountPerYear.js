@@ -120,14 +120,15 @@ var update = function (props) {
       class: 'country-count-per-year'
     });
 
-    let margin=50;
-    var h=_this.props.height-margin;
-    var w = _this.props.width-margin;
+    let marginHoriz=50;
+    let marginVert=70;
+    var h=_this.props.height-marginVert;
+    var w = _this.props.width-marginHoriz-10;
    _this._gAxes={};
    _this._gAxes.x=svg.append('g')
     .attr({
       class:'axis x',
-      transform:'translate('+margin+', '+h+')'
+      transform:'translate('+marginHoriz+', '+h+')'
     });
 
     _this._scales={
@@ -137,7 +138,7 @@ var update = function (props) {
 
     _this._gData = svg.append('g').attr({
       class:'data',
-      transform:'translate('+margin+', 0)'
+      transform:'translate('+marginHoriz+', 0)'
     });
     _this._gLabel = _this._gData.append('g').attr('class', 'label');
   }
@@ -254,8 +255,8 @@ var update = function (props) {
   render() {
     var _this = this;
 
-    var width = _this.props.width || 800;
-    var height = _this.props.width || height;
+    var width = _this.props.width || 666;
+    var height = _this.props.width || 333;
 
     var elMain = <svg height={height} width={width}/>;
     return <div className="country-count-per-year">

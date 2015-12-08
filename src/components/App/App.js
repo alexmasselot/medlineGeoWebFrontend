@@ -19,7 +19,7 @@ class App extends Component {
 
   render() {
     return !this.props.error ? (
-      <div>
+      <div style={{height:'600px', width:'100%'}}>
         <Header />
         {this.props.children}
         <Footer />

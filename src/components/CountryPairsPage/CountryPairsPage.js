@@ -6,6 +6,7 @@ import withStyles from '../../decorators/withStyles';
 import countryPairCountStore from '../../stores/CountryPairCountStore';
 import CountryPairsForcePerYear from '../CountryPairsForcePerYear/CountryPairsForcePerYear';
 import YearSlider from '../YearSlider/YearSlider';
+import Dimensions from 'react-dimensions';
 
 @withStyles(styles)
 class CountryPairsPage extends Component {
@@ -42,7 +43,7 @@ class CountryPairsPage extends Component {
       <div className="country-count graph-layout">
         <YearSlider store={countryPairCountStore} minYear={1960} maxYear={2014}/>
         <div className="country-count-container">
-          <CountryPairsForcePerYear height="500" width="960"/>
+          <CountryPairsForcePerYear height={_this.props.containerHeight} width={_this.props.containerWidth}/>
         </div>
       </div>
     );
@@ -50,4 +51,4 @@ class CountryPairsPage extends Component {
 
 }
 
-export default CountryPairsPage;
+export default Dimensions()(CountryPairsPage);

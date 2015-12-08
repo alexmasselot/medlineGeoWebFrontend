@@ -6,6 +6,7 @@ import withStyles from '../../decorators/withStyles';
 import countryCountStore from '../../stores/CountryCountStore';
 import CountryCountPerYear from '../CountryCountPerYear/CountryCountPerYear';
 import YearSlider from '../YearSlider/YearSlider';
+import Dimensions from 'react-dimensions';
 
 @withStyles(styles)
 class CountryPage extends Component {
@@ -42,7 +43,7 @@ class CountryPage extends Component {
       <div className="country-count graph-layout">
         <YearSlider store={countryCountStore} minYear={1960} maxYear={2014}/>
         <div className="country-count-container">
-          <CountryCountPerYear height="500" width="960"/>
+          <CountryCountPerYear height={_this.props.containerHeight} width={_this.props.containerWidth}/>
         </div>
       </div>
     );
@@ -50,4 +51,4 @@ class CountryPage extends Component {
 
 }
 
-export default CountryPage;
+export default Dimensions()(CountryPage);
