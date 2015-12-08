@@ -47,9 +47,12 @@ div.year-slider > div, div.year-slider > button{
 div.year-slider > button{
 }
 
+div.year-value{
+  font-weight:bold;
+}
+
 .horizontal-slider {
  width: 100%;
- max-width: 500px;
  height: 1.3em;
  //border: 1px solid grey;
 }
@@ -87,12 +90,12 @@ div.year-slider > button{
 }
 
 .horizontal-slider .bar {
- top: 20px;
+ top: 14px;
  height: 2px;
 }
 
 .horizontal-slider .handle {
- top: 11px;
+ top: 5px;
  width: 50px;
  height: 22px;
  line-height: 22px;

@@ -4,6 +4,7 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM  from 'react-dom';
 import ActionCreators from '../../actions/ActionCreators';
 import { Button, Glyphicon } from 'react-bootstrap';
+import Dimensions from 'react-dimensions'
 
 import ReactSlider from 'react-slider';
 import styles from './YearSlider.css';
@@ -26,6 +27,16 @@ import withStyles from '../../decorators/withStyles';
       localYear:year
     });
   }
+
+//  resize (){ _.throttle(() => {
+//      if (this.refs.root && this.refs.sidebarToggleBtn) {
+//        this.setState({
+//          rootWidth:              this.refs.root.offsetWidth,
+//          sidebarToggleBtnWidth:  this.refs.sidebarToggleBtn.offsetWidth,
+//        });
+//      }
+//    }, 30)
+//  }
 
   componentDidMount() {
     var _this = this;
@@ -64,22 +75,31 @@ import withStyles from '../../decorators/withStyles';
   render() {
     var _this = this;
 
+    let w = _this.props.containerWidth;
+
     return <div className="year-slider">
-      <Button bsStyle="primary" bsSize="small" onClick={_this.previousYear.bind(_this)}><Glyphicon glyph="chevron-left" /></Button>
-      <ReactSlider
-             className="horizontal-slider"
-             value={_this.state.localYear}
-             min={_this.props.minYear}
-             max={_this.props.maxYear}
-             withBars
-             onChange={function(v){_this.setState({localYear:v})}}
-             onAfterChange={_this.handleAfterChange}
-             >
-             <div className="{'year-value' + (_this.state.localYear === _this.state.selectedYear)?' confirmed':'') }" key="0">{_this.state.localYear}</div>
-         </ReactSlider>
-         <Button bsStyle="primary" bsSize="small" onClick={_this.nextYear.bind(_this)}><Glyphicon glyph="chevron-right" /></Button>
+      <div style={{width:'50%', position:'relative'}}>
+
+        <Button style={{width:'40px', top:0, left:0, position:'absolute'}} bsStyle="info" bsSize="small" onClick={_this.previousYear.bind(_this)}><Glyphicon glyph="chevron-left" /></Button>
+        <div style={{width:(w-115)+'px', left:'50px', top:0, position:'absolute'}}>
+          <ReactSlider
+                style={{width:(w-108)+'px', left:'50px'}}
+               className="horizontal-slider"
+               value={_this.state.localYear}
+               min={_this.props.minYear}
+               max={_this.props.maxYear}
+               withBars
+               onChange={function(v){_this.setState({localYear:v})}}
+               onAfterChange={_this.handleAfterChange}
+               >
+               <div className={'year-value' + ((_this.state.localYear === _this.state.selectedYear)?' confirmed':'') }
+                    key="0">{_this.state.localYear}</div>
+           </ReactSlider>
+         </div>
+         <Button  style={{width:'40px', left:(w-53)+'px', top:0, position:'absolute'}} bsStyle="info" bsSize="small" onClick={_this.nextYear.bind(_this)}><Glyphicon glyph="chevron-right" /></Button>
+       </div>
     </div>;
   }
 }
 
-export default YearSlider;
+export default Dimensions()(YearSlider);

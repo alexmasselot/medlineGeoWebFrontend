@@ -39,8 +39,7 @@ class HexaMapPage extends Component {
 
     this.context.onSetTitle(title);
     return (
-
-      <div className="HexaMap">
+      <div className="HexaMap graph-layout">
 
         <YearSlider store={hexaCountStore} minYear={1960} maxYear={2014}/>
         <div className="HexaMap-container">

@@ -39,7 +39,7 @@ class CountryPairsPage extends Component {
 
     this.context.onSetTitle(title);
     return (
-      <div className="country-count">
+      <div className="country-count graph-layout">
         <YearSlider store={countryPairCountStore} minYear={1960} maxYear={2014}/>
         <div className="country-count-container">
           <CountryPairsForcePerYear height="500" width="960"/>

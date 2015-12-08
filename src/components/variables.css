@@ -1,5 +1,10 @@
 /* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
+div.graph-layout{
+  border-style:solid;
+  border-width:1px;
+  border-color:darkgray;
+}
 :root {
 
   /*

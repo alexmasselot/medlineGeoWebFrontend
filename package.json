@@ -26,6 +26,7 @@
     "object-assign": "^4.0.1",
     "react": "^0.14.1",
     "react-bootstrap": "^0.27.3",
+    "react-dimensions": "^1.0.0",
     "react-dom": "^0.14.1",
     "react-routing": "0.0.4",
     "react-slider": "^0.6.0",

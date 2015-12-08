@@ -17,6 +17,7 @@ import ActionCreators from './actions/ActionCreators';
 const router = new Router(on => {
   on('*', async (state, next) => {
     const component = await next();
+    console.log('in *')
     return component && <App context={state.context}>{component}</App>;
   });
 
@@ -40,10 +41,6 @@ const router = new Router(on => {
   });
 
   on('/contact', async () => <ContactPage />);
-
-  on('/login', async () => <LoginPage />);
-
-  on('/register', async () => <RegisterPage />);
 
   on('*', async (state) => {
     const content = await http.get(`/api/content?path=${state.path}`);
