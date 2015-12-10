@@ -69,13 +69,22 @@ var update = function (props) {
       class: 'hexamap'
     });
     _this._gHexagons = svg.append('g').attr('class', 'hexagons');
-    var gCountries = svg.append('g').attr('class', 'map-countries');
-
+    var gCountries = svg.append('g').attr('class', 'map-countries')
+    //.attr({transform:'translate('+this.props.width / 2+','+this.props.height * 0.5+')'});
 
     _this._projection = d3.geo.equirectangular()
-      .scale(160)
-      .translate([this.props.width / 2, this.props.height * 0.5])
       .precision(.1);
+    let xmax = _this._projection([179.9,0])[0];
+    let ymax = _this._projection([0,-89.9])[1];
+    let x0 = _this._projection([0,0])[0];
+    let y0 = _this._projection([0,0])[1];
+    let xFactor = _this.props.width/2/(xmax-x0)
+    let yFactor = _this.props.height/2/(ymax-y0)
+    let scale = Math.min(xFactor, yFactor)*140
+
+    _this._projection =  _this._projection
+      .translate([_this.props.width/2, _this.props.height/2])
+      .scale(scale);
 
     _this._geoPath = d3.geo.path()
       .projection(_this._projection);

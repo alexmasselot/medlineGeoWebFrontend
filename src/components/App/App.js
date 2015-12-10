@@ -7,6 +7,7 @@ import withStyles from '../../decorators/withStyles';
 import Header from '../Header';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
+import Dimensions from 'react-dimensions';
 
 @withContext
 @withStyles(styles)
@@ -18,8 +19,13 @@ class App extends Component {
   };
 
   render() {
+
+    let width = this.props.containerWidth;
+    //remove header and footer heights
+    let height = window.innerHeight -80 -60;
+
     return !this.props.error ? (
-      <div style={{height:'600px', width:'100%'}}>
+      <div style={{height:height+'px', width:width+'px'}}>
         <Header />
         {this.props.children}
         <Footer />
@@ -29,4 +35,4 @@ class App extends Component {
 
 }
 
-export default App;
+export default Dimensions()(App);
