@@ -4,12 +4,14 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM  from 'react-dom';
 import styles from './HexaMap.css';
 import withStyles from '../../decorators/withStyles';
-import hexaCountStore from '../../stores/HexaCountStore.js';
+import hexaCountStore from '../../stores/HexaCountStore';
+import countryDefsStore from '../../stores/CountryDefsStore';
 import topojson from 'topojson';
-import topojsonWorld from './world-110m.json';
 import _ from 'lodash';
 
 import d3 from 'd3';
+
+let topojsonWorld =countryDefsStore.getTopoJson();
 
 
 var update = function (props) {
