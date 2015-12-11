@@ -7,7 +7,9 @@ import withStyles from '../../decorators/withStyles';
 import Header from '../Header';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
+import Details from '../Details';
 import Dimensions from 'react-dimensions';
+
 
 @withContext
 @withStyles(styles)
@@ -25,9 +27,12 @@ class App extends Component {
     let height = window.innerHeight -80 -60;
 
     return !this.props.error ? (
-      <div style={{height:height+'px', width:width+'px'}}>
+      <div >
         <Header />
-        {this.props.children}
+        <div className="row">
+          <div className="col-xs-10" style={{height:height+'px'}}>{this.props.children}</div>
+           <div className="col-xs-2"><Details/></div>
+        </div>
         <Footer />
       </div>
     ) : this.props.children;

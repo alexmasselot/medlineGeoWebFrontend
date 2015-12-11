@@ -6,6 +6,8 @@ import styles from './CountryCountPerYear.css';
 import withStyles from '../../decorators/withStyles';
 import countryCountStore from '../../stores/CountryCountStore.js';
 import _ from 'lodash';
+import ActionCreators from '../../actions/ActionCreators';
+
 
 import d3 from 'd3';
 
@@ -120,7 +122,7 @@ var update = function (props) {
       class: 'country-count-per-year'
     });
 
-    let marginHoriz=50;
+    let marginHoriz=5;
     let marginVert=70;
     var h=_this.props.height-marginVert;
     var w = _this.props.width-marginHoriz-10;
@@ -152,7 +154,7 @@ var update = function (props) {
     }).pluck('countryIso').value());
 
     var xAxis = d3.svg.axis().scale(_this._scales.x).orient('bottom');
-    _this._gAxes.x.call(xAxis);
+    //_this._gAxes.x.call(xAxis);
 
 
     let y0 = _this._scales.y(0);
@@ -227,6 +229,9 @@ var update = function (props) {
           return 'images/flags_iso/48/'+c.countryIso.toLowerCase()+'.png'
         },
         y:y0,
+       })
+       .on('mouseover', function(c){
+        ActionCreators.showCountryDetails(c.countryIso);
        });
 
     flags

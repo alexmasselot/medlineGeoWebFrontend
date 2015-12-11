@@ -16,6 +16,7 @@ class CountryPairsPage extends Component {
 
   _onChange() {
     var _this = this;
+
   }
 
   componentDidMount() {
@@ -43,7 +44,7 @@ class CountryPairsPage extends Component {
       <div className="country-count graph-layout">
         <YearSlider store={countryPairCountStore} minYear={1960} maxYear={2014}/>
         <div className="country-count-container">
-          <CountryPairsForcePerYear height={_this.props.containerHeight} width={_this.props.containerWidth}/>
+          <CountryPairsForcePerYear height={_this.props.containerHeight-28} width={_this.props.containerWidth}/>
         </div>
       </div>
     );

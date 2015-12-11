@@ -40,7 +40,7 @@ class Html extends Component {
         <link rel="apple-touch-icon" href="apple-touch-icon.png" />
         <style id="css" dangerouslySetInnerHTML={{__html: this.props.css}} />
       </head>
-      <body>
+      <body className="container-fluid">
         <div id="app" dangerouslySetInnerHTML={{__html: this.props.body}} />
         <script src="/app.js"></script>
         <script dangerouslySetInnerHTML={this.trackingCode()} />

@@ -44,7 +44,7 @@ class HexaMapPage extends Component {
 
         <YearSlider store={hexaCountStore} minYear={1960} maxYear={2014}/>
         <div className="HexaMap-container">
-          <HexaMap height={_this.props.containerHeight} width={_this.props.containerWidth}/>
+          <HexaMap height={_this.props.containerHeight-28} width={_this.props.containerWidth}/>
         </div>
       </div>
     );

@@ -34,8 +34,12 @@ const store = assign({}, BaseStore, {
     },
 
     setCountryFocus(iso2){
-      _data[countryFocus] = this.getInfoByIso2(iso2);
+      _data.countryFocus = this.getInfoByIso2(iso2);
       store.emitChange();
+    },
+
+    getCountryFocus(){
+      return _data.countryFocus
     },
 
     dispatcherIndex: dispatcher.register(function (payload) {
@@ -44,7 +48,7 @@ const store = assign({}, BaseStore, {
 
       switch (action.type) {
         case Constants.ACTION_SET_COUNTRY_FOCUS:
-          store.getCount(parseInt(payload.year))
+          store.setCountryFocus(payload.iso2.toUpperCase());
           break;
       }
     })

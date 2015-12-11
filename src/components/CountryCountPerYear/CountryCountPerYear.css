@@ -14,5 +14,8 @@ div.country-count-per-year{
     fill:none;
     stroke:black;
   }
+  text.country-count-label{
+    font-size:80%;
+  }
 }
 

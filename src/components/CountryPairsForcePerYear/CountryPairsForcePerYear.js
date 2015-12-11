@@ -5,6 +5,7 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM  from 'react-dom';
 import styles from './CountryPairsForcePerYear.css';
 import withStyles from '../../decorators/withStyles';
+import ActionCreators from '../../actions/ActionCreators';
 import CountryPairCountStore from '../../stores/CountryPairCountStore.js';
 import _ from 'lodash';
 
@@ -237,6 +238,7 @@ var update = function (props) {
             class:'node'
            })
         .on('mouseover', function(c){
+            ActionCreators.showCountryDetails(c.iso);
         })
         .on("dblclick", dblclick)
         .call(_this._dragNode);

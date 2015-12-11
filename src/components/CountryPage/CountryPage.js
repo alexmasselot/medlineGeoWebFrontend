@@ -43,7 +43,7 @@ class CountryPage extends Component {
       <div className="country-count graph-layout">
         <YearSlider store={countryCountStore} minYear={1960} maxYear={2014}/>
         <div className="country-count-container">
-          <CountryCountPerYear height={_this.props.containerHeight} width={_this.props.containerWidth}/>
+          <CountryCountPerYear height={_this.props.containerHeight-28} width={_this.props.containerWidth}/>
         </div>
       </div>
     );
