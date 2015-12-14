@@ -5,6 +5,7 @@ import Router from 'react-routing/src/Router';
 import http from './core/HttpClient';
 import App from './components/App';
 import HexaMapPage from './components/HexaMapPage';
+import AllPage from './components/AllPage';
 import CountryPage from './components/CountryPage';
 import CountryPairsPage from './components/CountryPairsPage';
 import ContactPage from './components/ContactPage';
@@ -21,6 +22,14 @@ const router = new Router(on => {
     return component && <App context={state.context}>{component}</App>;
   });
 
+  on('/all', async () => {
+    setTimeout(function(){
+      ActionCreators.citationLocatedCountByHexagon(1, 2002);
+      ActionCreators.countryCount(2002);
+      ActionCreators.countryPairsCount(2002);
+    },200);
+    return <AllPage/>
+  });
   on('/hexamap', async () => {
     setTimeout(function(){ActionCreators.citationLocatedCountByHexagon(1, 2002);},200);
     return <HexaMapPage/>

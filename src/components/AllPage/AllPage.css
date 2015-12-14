@@ -1,0 +1,18 @@
+/* React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
+
+@import '../variables.css';
+
+.All-container {
+  margin: 0 auto;
+  padding: 0 0 40px;
+  position:relative;
+
+  div.enlarge{
+    position:absolute;
+    right:3px;
+  }
+}
+div.All-container > div{
+  position:relative;
+}
+

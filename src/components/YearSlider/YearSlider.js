@@ -5,6 +5,7 @@ import ReactDOM  from 'react-dom';
 import ActionCreators from '../../actions/ActionCreators';
 import { Button, Glyphicon } from 'react-bootstrap';
 import Dimensions from 'react-dimensions'
+import _ from 'lodash';
 
 import ReactSlider from 'react-slider';
 import styles from './YearSlider.css';
@@ -19,9 +20,25 @@ import withStyles from '../../decorators/withStyles';
     };
   }
 
+  getFirstStore(){
+    let _this = this;
+    if(_.isArray(_this.props.store)){
+      return _this.props.store[0];
+    }
+    return _this.props.store;
+  }
+
+  getStores(){
+    let _this = this;
+    if(_.isArray(_this.props.store)){
+      return _this.props.store;
+    }
+    return [_this.props.store];
+  }
+
   _onChange() {
     var _this = this;
-    let year = _this.props.store.getData().year;
+    let year = _this.getFirstStore().getData().year;
     _this.setState({
       selectedYear:year,
       localYear:year
@@ -40,15 +57,19 @@ import withStyles from '../../decorators/withStyles';
 
   componentDidMount() {
     var _this = this;
-    _this.props.store.addChangeListener(function () {
-      _this._onChange();
+    _.each(_this.getStores(), function(store){
+      store.addChangeListener(function () {
+        _this._onChange();
+      });
     });
   }
 
   componentWillUnmount() {
     let _this = this;
-    _this.props.store.removeChangeListener(function () {
-      _this._onChange();
+    _.each(_this.getStores(), function(store){
+      store.removeChangeListener(function () {
+        _this._onChange();
+      });
     });
   }
 
@@ -93,7 +114,7 @@ import withStyles from '../../decorators/withStyles';
                onAfterChange={_this.handleAfterChange}
                >
                <div className={'year-value' + ((_this.state.localYear === _this.state.selectedYear)?' confirmed':'') }
-                    key="0">{_this.state.localYear}</div>
+                key="0">{_this.state.localYear}</div>
            </ReactSlider>
          </div>
          <Button  style={{width:'40px', left:(w-53)+'px', top:0, position:'absolute'}} bsStyle="info" bsSize="small" onClick={_this.nextYear.bind(_this)}><Glyphicon glyph="chevron-right" /></Button>

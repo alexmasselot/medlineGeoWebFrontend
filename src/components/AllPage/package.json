@@ -1,0 +1,6 @@
+{
+  "name": "AllPage",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./AllPage.js"
+}

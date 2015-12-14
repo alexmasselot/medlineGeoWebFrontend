@@ -3,8 +3,8 @@
 @import '../variables.css';
 
 .HexaMap-container {
-  margin: 0 auto;
-  padding: 0 0 40px;
+  /*margin: 0 auto;*/
+  /*padding: 0 0 40px;*/
   svg.hexamap{
     path.country{
       fill:none;
