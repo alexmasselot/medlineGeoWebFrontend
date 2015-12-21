@@ -4,6 +4,6 @@
 
 svg.country-pairs-force-per-year{
   path.link{
-    stroke:gray;
+    fill:darkgray;
   }
 }

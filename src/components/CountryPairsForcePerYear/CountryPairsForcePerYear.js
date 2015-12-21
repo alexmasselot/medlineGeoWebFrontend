@@ -161,13 +161,21 @@ var update = function (props) {
       height : parseInt(_this.props.height),
       width : parseInt(_this.props.width)
     };
+    _this._transform = {
+      translate:[0,0],
+      scale:1
+    };
     _this._dim.radius  = Math.min(_this._dim.width, _this._dim.height)*0.4;
 
     d3.select(el).selectAll().empty();
 
 		var zoomed = function() {
+		  _this._transform.translate =  d3.event.translate;
+		  _this._transform.scale =  d3.event.scale;
+
 			_this._gMain.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-		}
+		};
+
     var zoom = d3.behavior.zoom()
     		    .scaleExtent([0.1, 10])
     		    .on("zoom", zoomed);
@@ -205,6 +213,30 @@ var update = function (props) {
     _this._dragNode = _this._force.drag()
         .on("dragstart", dragStart);
 
+
+    _this._force.on('end', function(){
+      //_this._force.friction(0.02);
+      let oldScale = _this._transform.scale;
+      let xs = _.chain(_this._nodes).pluck('x');
+      let xmin = xs.min().value();///oldScale-_this._transform.translate[0];
+      let xmax = xs.max().value();///oldScale-_this._transform.translate[0];
+
+      let ys = _.chain(_this._nodes).pluck('y');
+      let ymin = ys.min().value();///oldScale-_this._transform.translate[1];
+      let ymax = ys.max().value();///oldScale-_this._transform.translate[1];
+
+      _this._transform.scale = Math.min(_this._dim.width/(xmax-xmin),  _this._dim.height/(ymax-ymin),2)*0.95;
+      _this._transform.translate[0] = _this._dim.width/2 -(xmax+xmin)/2*_this._transform.scale ;
+      _this._transform.translate[1] = _this._dim.height/2 -(ymax+ymin)/2*_this._transform.scale ;
+
+      zoom.translate(_this._transform.translate);
+      zoom.scale(_this._transform.scale);
+      _this._gMain
+            .transition()
+            .duration(300)
+            .attr("transform", "translate(" + _this._transform.translate[0]+','+ _this._transform.translate[1]+ ")scale(" + _this._transform.scale + ")")
+    });
+
   }
 
   renderD3(el) {
@@ -213,15 +245,13 @@ var update = function (props) {
       return;
     }
 
-
-
      var link = _this._gLinks.selectAll("path.link").data(_this._links);
      var node = _this._gNodes.selectAll("g.node").data(_this._nodes);
 
      link.enter().append("path")
        .attr("class", "link")
        .style({
-        'opacity': function(cp){return 0.3}
+        'opacity': function(cp){return 0.6;}
        });
 
 
@@ -292,9 +322,6 @@ var update = function (props) {
     node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   });
 
-//  _this._force.on('end', function(){
-//    _this._force.friction(0.1);
-//  })
 //  _this._force.on('end', function(){
 //    _this._force.friction(0.1);
 //  })
