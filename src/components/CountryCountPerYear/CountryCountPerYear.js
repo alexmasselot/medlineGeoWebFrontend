@@ -7,6 +7,7 @@ import withStyles from '../../decorators/withStyles';
 import countryCountStore from '../../stores/CountryCountStore.js';
 import _ from 'lodash';
 import ActionCreators from '../../actions/ActionCreators';
+import legendStore from '../../stores/LegendStore';
 
 
 import d3 from 'd3';
@@ -16,6 +17,14 @@ var update = function (props) {
   return function (me) {
   };
 };
+
+legendStore.registerLegend('CountryCountPerYear',
+  <div>The graph displays publication count for the top most countries:
+    <ul className="legend">
+      <li>mouse over a flag for country name</li>
+    </ul>
+  </div>
+)
 
 @withStyles(styles) class CountryCountPerYear extends Component {
   constructor() {
@@ -120,6 +129,10 @@ var update = function (props) {
       width: this.props.width,
       height: this.props.height,
       class: 'country-count-per-year'
+    });
+
+    svg.on('mouseover',function(){
+      ActionCreators.showLegend('CountryCountPerYear');
     });
 
     let marginHoriz=5;

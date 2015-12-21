@@ -31,6 +31,7 @@ export default {
         year:year
       })
   },
+
   showCountryDetails(iso2) {
     dispatcher.dispatch({
       action:{type:Constants.ACTION_SET_COUNTRY_FOCUS},
@@ -38,5 +39,11 @@ export default {
     })
   },
 
+  showLegend(name) {
+    dispatcher.dispatch({
+      action:{type:Constants.ACTION_SET_LEGEND},
+      name:name
+    })
+  },
 
 };

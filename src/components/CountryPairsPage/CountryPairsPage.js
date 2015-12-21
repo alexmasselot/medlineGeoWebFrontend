@@ -8,6 +8,8 @@ import CountryPairsForcePerYear from '../CountryPairsForcePerYear/CountryPairsFo
 import YearSlider from '../YearSlider/YearSlider';
 import Dimensions from 'react-dimensions';
 
+
+
 @withStyles(styles)
 class CountryPairsPage extends Component {
   constructor(){

@@ -4,10 +4,12 @@ import React, { PropTypes, Component } from 'react';
 import ReactDOM  from 'react-dom';
 import styles from './HexaMap.css';
 import withStyles from '../../decorators/withStyles';
+import ActionCreators from '../../actions/ActionCreators';
 import hexaCountStore from '../../stores/HexaCountStore';
 import countryDefsStore from '../../stores/CountryDefsStore';
 import topojson from 'topojson';
 import _ from 'lodash';
+import legendStore from '../../stores/LegendStore';
 
 import d3 from 'd3';
 
@@ -19,6 +21,14 @@ var update = function (props) {
     me.append('h1').text('TADAAAA')
   };
 };
+
+legendStore.registerLegend('HexaMap',
+  <div>The graph displays publication count per location, grouped per hexagon:
+    <ul className="legend">
+      <li>the blue to red color scale shows the relative number of publication per location</li>
+    </ul>
+  </div>
+)
 
 @withStyles(styles) class HexaMap extends Component {
   constructor() {
@@ -70,6 +80,12 @@ var update = function (props) {
       height: this.props.height,
       class: 'hexamap'
     });
+
+    svg.on('mouseover',function(){
+      ActionCreators.showLegend('HexaMap');
+    });
+
+
     _this._gHexagons = svg.append('g').attr('class', 'hexagons');
     var gCountries = svg.append('g').attr('class', 'map-countries')
     //.attr({transform:'translate('+this.props.width / 2+','+this.props.height * 0.5+')'});

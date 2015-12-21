@@ -8,6 +8,7 @@ import Header from '../Header';
 import Feedback from '../Feedback';
 import Footer from '../Footer';
 import Details from '../Details';
+import Legend from '../Legend';
 import Dimensions from 'react-dimensions';
 
 
@@ -31,7 +32,7 @@ class App extends Component {
         <Header />
         <div className="row">
           <div className="col-xs-10" style={{height:height+'px'}}>{this.props.children}</div>
-           <div className="col-xs-2"><Details/></div>
+           <div className="col-xs-2 info" style={{height:height+'px'}}><Details/><Legend/></div>
         </div>
         <Footer />
       </div>

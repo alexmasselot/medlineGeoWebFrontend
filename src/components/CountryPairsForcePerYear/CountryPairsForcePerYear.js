@@ -7,6 +7,8 @@ import styles from './CountryPairsForcePerYear.css';
 import withStyles from '../../decorators/withStyles';
 import ActionCreators from '../../actions/ActionCreators';
 import CountryPairCountStore from '../../stores/CountryPairCountStore.js';
+import legendStore from '../../stores/LegendStore';
+
 import _ from 'lodash';
 
 import d3 from 'd3';
@@ -17,6 +19,20 @@ var update = function (props) {
     me.append('h1').text('TADAAAA')
   };
 };
+
+legendStore.registerLegend('CountryPairsForcePerYear',
+  <div>The graph displays links between countries per localized publications:
+    <ul className="legend">
+      <li>the flag size shows the relative number of publications per country;</li>
+      <li>link width shows the overall collaboration contribution;</li>
+      <li>mouse over a flag for country name</li>
+      <li>click and drag a flag to fix it;</li>
+      <li>double click to release it;</li>
+      <li>wheel or drag to zoom in and out.</li>
+    </ul>
+  </div>
+)
+
 
 @withStyles(styles) class CountryPairsForcePerYear extends Component {
   constructor() {
@@ -187,7 +203,9 @@ var update = function (props) {
     })
     .call(zoom);
 
-
+    _this._svg.on('mouseover',function(){
+      ActionCreators.showLegend('CountryPairsForcePerYear');
+    });
 
     let d0 = Math.min(_this._dim.width, _this._dim.height)/5;
     _this._force = d3.layout.force()

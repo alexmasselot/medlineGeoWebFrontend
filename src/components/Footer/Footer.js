@@ -24,7 +24,7 @@ import d3 from 'd3';
     this.renderCss(`.Footer-viewport:after {content:' ${width}x${height}';}`);
 
     return (
-      <div className="Footer">
+      <div className="Footer row">
         <div className="Footer-container">
           <span className="Footer-text">© Your Company</span>
           <span className="Footer-spacer">·</span>

@@ -3,6 +3,13 @@
 
 @import '../variables.css';
 
+div.info{
+  position:relative;
+}
+ul.legend li{
+  margin-left:-17px;
+}
+
 /*
  * Base styles
  * ========================================================================== */
