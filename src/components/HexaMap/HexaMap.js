@@ -25,7 +25,7 @@ var update = function (props) {
 legendStore.registerLegend('HexaMap',
   <div>The graph displays publication count per location, grouped per hexagon:
     <ul className="legend">
-      <li>the blue to red color scale shows the relative number of publication per location</li>
+      <li>the yellow to red color scale shows the relative number of publication per location.</li>
     </ul>
   </div>
 )
@@ -146,7 +146,7 @@ legendStore.registerLegend('HexaMap',
       })
       .value();
 
-    var color = d3.scale.log().domain([1, maxCount]).range(["blue", "red"])
+    var color = d3.scale.log().domain([1, maxCount]).range(["#ffff44", "#ff0000"])
     _this._gHexagons.selectAll('path.count').remove();
     _this._gHexagons.selectAll('path.count')
       .data(features)

@@ -40,7 +40,7 @@ const router = new Router(on => {
   });
 
   on('/country-pairs', async () => {
-    setTimeout(function(){ActionCreators.countryPairsCount(1980);},200);
+    setTimeout(function(){ActionCreators.countryPairsCount(2002);},200);
     return <CountryPairsPage/>
   });
 
