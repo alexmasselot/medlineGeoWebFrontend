@@ -7,24 +7,33 @@ import React from 'react';
 import ReactDOM from 'react-dom/server';
 import Router from './routes';
 import Html from './components/Html';
+var serveStatic = require('serve-static');
 
 const server = global.server = express();
 
 server.set('port', (process.env.PORT || 5000));
 server.use(express.static(path.join(__dirname, 'public')));
+server.use('/server-cached', express.static(path.join(__dirname, 'server-cached'), {
+  setHeaders: function (res, path) {
+    res.setHeader('Content-Type', 'application/json');
+  }
+}));
 
 //
 // Register API middleware
 // -----------------------------------------------------------------------------
 server.use('/api/content', require('./api/content'));
 
+
 //
 // Register server-side rendering middleware
 // -----------------------------------------------------------------------------
+
+
 server.get('*', async (req, res, next) => {
   try {
     let statusCode = 200;
-    const data = { title: '', description: '', css: '', body: '' };
+    const data = {title: '', description: '', css: '', body: ''};
     const css = [];
     const context = {
       onInsertCss: value => css.push(value),
@@ -33,7 +42,7 @@ server.get('*', async (req, res, next) => {
       onPageNotFound: () => statusCode = 404,
     };
 
-    await Router.dispatch({ path: req.path, context }, (state, component) => {
+    await Router.dispatch({path: req.path, context}, (state, component) => {
       data.body = ReactDOM.renderToString(component);
       data.css = css.join('');
     });

@@ -2,4 +2,8 @@
 
 export default {
   googleAnalyticsId: 'UA-XXXXX-X',
+  apiUrls:{
+    localhost:'http://localhost:9000',
+    fallback:'server-cached'
+  }
 };

@@ -30,6 +30,7 @@
     "react-dom": "^0.14.1",
     "react-routing": "0.0.4",
     "react-slider": "^0.6.0",
+    "serve-static": "^1.10.0",
     "source-map-support": "0.3.2",
     "superagent": "1.4.0",
     "topojson": "^1.6.19"

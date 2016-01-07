@@ -16,19 +16,22 @@ const store = assign({}, BaseStore, {
     },
 
     /**
-      load count data for a given radius + year, update the model and fire change event
-    */
+     load count data for a given radius + year, update the model and fire change event
+     */
     getCount(radius, year){
-      if(this.countListener()===0){
+      let _this = this;
+      if (this.countListener() === 0) {
         return;
       }
-      return httpClient.get('http://localhost:9000/citation-located/countByHexagon/' + radius + '?year=' + year)
-      .then(function (data) {
-                  _data.radius = radius;
-                  _data.year = year;
-                  _data.hexaCounts = data;
-                  store.emitChange();
-                });
+      return httpClient.get(_this.apiUrl() + '/api/citation-located/countByHexagon/' + radius + '/' + year)
+        .then(function (data) {
+          _data.radius = radius;
+          _data.year = year;
+          _data.hexaCounts = data;
+          store.emitChange();
+        }).catch(function (err) {
+          console.error(err);
+        });
     },
 
     dispatcherIndex: dispatcher.register(function (payload) {

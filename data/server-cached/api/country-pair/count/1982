@@ -1,0 +1,10 @@
+[
+{"year":1982,"nbPubmedIds":1,"countryFrom":"GB","countryTo":"IN","nbPubmedIdTotalFrom":191,"nbPubmedIdTotalTo":168},
+{"year":1982,"nbPubmedIds":1,"countryFrom":"BR","countryTo":"JP","nbPubmedIdTotalFrom":9,"nbPubmedIdTotalTo":168},
+{"year":1982,"nbPubmedIds":1,"countryFrom":"CH","countryTo":"GB","nbPubmedIdTotalFrom":49,"nbPubmedIdTotalTo":191},
+{"year":1982,"nbPubmedIds":1,"countryFrom":"NL","countryTo":"SE","nbPubmedIdTotalFrom":58,"nbPubmedIdTotalTo":63},
+{"year":1982,"nbPubmedIds":1,"countryFrom":"CA","countryTo":"US","nbPubmedIdTotalFrom":135,"nbPubmedIdTotalTo":1449},
+{"year":1982,"nbPubmedIds":1,"countryFrom":"GB","countryTo":"US","nbPubmedIdTotalFrom":191,"nbPubmedIdTotalTo":1449},
+{"year":1982,"nbPubmedIds":1,"countryFrom":"CN","countryTo":"US","nbPubmedIdTotalFrom":19,"nbPubmedIdTotalTo":1449},
+{"year":1982,"nbPubmedIds":1,"countryFrom":"TW","countryTo":"US","nbPubmedIdTotalFrom":5,"nbPubmedIdTotalTo":1449}
+]

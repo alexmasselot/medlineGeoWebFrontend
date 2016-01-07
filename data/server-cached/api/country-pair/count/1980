@@ -1,0 +1,8 @@
+[
+{"year":1980,"nbPubmedIds":1,"countryFrom":"BE","countryTo":"FR","nbPubmedIdTotalFrom":29,"nbPubmedIdTotalTo":66},
+{"year":1980,"nbPubmedIds":1,"countryFrom":"JP","countryTo":"US","nbPubmedIdTotalFrom":159,"nbPubmedIdTotalTo":1037},
+{"year":1980,"nbPubmedIds":1,"countryFrom":"CH","countryTo":"US","nbPubmedIdTotalFrom":25,"nbPubmedIdTotalTo":1037},
+{"year":1980,"nbPubmedIds":1,"countryFrom":"IL","countryTo":"US","nbPubmedIdTotalFrom":21,"nbPubmedIdTotalTo":1037},
+{"year":1980,"nbPubmedIds":1,"countryFrom":"TW","countryTo":"US","nbPubmedIdTotalFrom":2,"nbPubmedIdTotalTo":1037},
+{"year":1980,"nbPubmedIds":1,"countryFrom":"CH","countryTo":"FI","nbPubmedIdTotalFrom":25,"nbPubmedIdTotalTo":23}
+]

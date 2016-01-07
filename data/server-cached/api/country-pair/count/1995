@@ -1,0 +1,15 @@
+[
+{"year":1995,"nbPubmedIds":1,"countryFrom":"BR","countryTo":"ES","nbPubmedIdTotalFrom":1200,"nbPubmedIdTotalTo":4091},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"DK","countryTo":"ES","nbPubmedIdTotalFrom":1240,"nbPubmedIdTotalTo":4091},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"BR","countryTo":"SG","nbPubmedIdTotalFrom":1200,"nbPubmedIdTotalTo":467},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"CN","countryTo":"JP","nbPubmedIdTotalFrom":2036,"nbPubmedIdTotalTo":12469},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"JP","countryTo":"NL","nbPubmedIdTotalFrom":12469,"nbPubmedIdTotalTo":4664},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"DE","countryTo":"FR","nbPubmedIdTotalFrom":8515,"nbPubmedIdTotalTo":12245},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"NL","countryTo":"SE","nbPubmedIdTotalFrom":4664,"nbPubmedIdTotalTo":4144},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"SG","countryTo":"US","nbPubmedIdTotalFrom":467,"nbPubmedIdTotalTo":92279},
+{"year":1995,"nbPubmedIds":3,"countryFrom":"CA","countryTo":"US","nbPubmedIdTotalFrom":8955,"nbPubmedIdTotalTo":92279},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"NL","countryTo":"US","nbPubmedIdTotalFrom":4664,"nbPubmedIdTotalTo":92279},
+{"year":1995,"nbPubmedIds":1,"countryFrom":"FR","countryTo":"US","nbPubmedIdTotalFrom":12245,"nbPubmedIdTotalTo":92279},
+{"year":1995,"nbPubmedIds":2,"countryFrom":"BR","countryTo":"US","nbPubmedIdTotalFrom":1200,"nbPubmedIdTotalTo":92279},
+{"year":1995,"nbPubmedIds":2,"countryFrom":"SE","countryTo":"US","nbPubmedIdTotalFrom":4144,"nbPubmedIdTotalTo":92279}
+]

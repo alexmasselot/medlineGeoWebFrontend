@@ -1,0 +1,6 @@
+{
+  "googleAnalyticsId": "UA-XXXXX-X",
+  "api":{
+    "url":"http://localhost:9000"
+  }
+}

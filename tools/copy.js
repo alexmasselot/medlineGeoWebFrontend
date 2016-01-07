@@ -20,6 +20,7 @@ import watch from './lib/watch';
 export default task('copy', async () => {
   await Promise.all([
     copy('src/public', 'build/public'),
+    copy('data/server-cached', 'build/server-cached'),
     copy('src/content', 'build/content'),
     copy('package.json', 'build/package.json'),
   ]);

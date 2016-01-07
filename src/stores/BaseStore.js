@@ -1,10 +1,16 @@
 import assign from 'object-assign';
 import Constants from '../constants/Constants';
 import {EventEmitter} from 'events';
+import { apiUrls } from '../config';
 
 export default assign({}, EventEmitter.prototype, {
 
   _countListener:0,
+
+  apiUrl(){
+    let hostname = document.location.hostname;
+    return apiUrls[hostname] || apiUrls.fallback
+  },
 
   countListener(){
     return this._countListener;
