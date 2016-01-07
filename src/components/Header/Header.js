@@ -13,13 +13,12 @@ class Header extends Component {
     return (
       <div className="Header row">
         <div className="Header-container">
-          <a className="Header-brand" href="/" onClick={Link.handleClick}>
-            <img className="Header-brandImg" src={require('./logo-small.png')} width="38" height="38" alt="React" />
+          <a className="Header-brand" href="http://www.octo.ch">
+           <img className="Header-brandImg" src="/images/swiss-cow-octo.png" height="38" alt="octo" />
             <span className="Header-brandTxt">Medline geo</span>
           </a>
           <Navigation className="Header-nav" />
-          <div className="Header-banner">
-          </div>
+
         </div>
       </div>
     );
