@@ -2,21 +2,27 @@
 title: medline geo
 component: ContentPage
 ---
+
 div.row
-  div.col-sm-4
-    h3 Runtime Components
-    dl
-      dt <a href="https://facebook.github.io/react/">React</a>
-      dd A JavaScript library for building user interfaces, developed by Facebook
-      dt <a href="http://facebook.github.io/flux/">Flux</a>
-      dd Application architecture for building user interfaces
-  div.col-sm-4
-    h3 Development Tools
-    dl
-      dt <a href="http://webpack.github.io/">Webpack</a>
-      dd Compiles front-end source code into modules / bundles
-      dt <a href="http://www.browsersync.io/">BrowserSync</a>
-      dd A lightweight HTTP server for development
-  div.col-sm-4
-    h3 Fork me on GitHub
-    p <a href="https://github.com/kriasoft/react-starter-kit">github.com/kriasoft/react-starter-kit</a>
+  div.jumbotron.col-xs-offset-2
+    h2 Geo localizing Medline citations
+    div.
+      When and where are the scientific publications coming from? Which country are collaborating the most?
+      To investigate those questions, we focused on Medline, the major biology and biomedical peer reviewed citations repository.
+    div All details on method and source code can be found #[a(href='http://blog.octo.com/QQQ') here].
+
+    h3  Browse the data!
+    div.row
+      div.col-sm-4
+        h4
+          a(href='/hexamap') per location
+        img(src='/images/snapshot-per-location.png', style={width: '100%'})
+      div.col-sm-4
+        h4
+          a(href='/country') per country
+        img(src='/images/snapshot-per-country.png', style={width: '100%'})
+      div.col-sm-4
+        h4
+          a(href='/country-pairs') collaborations
+        img(src='/images/snapshot-per-country-collaboration.png', style={width: '100%'})
+

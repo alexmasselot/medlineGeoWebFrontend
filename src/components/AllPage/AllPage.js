@@ -1,7 +1,7 @@
 /*! React Starter Kit | MIT License | http://www.reactstarterkit.com/ */
 
 import React, { PropTypes, Component } from 'react';
-import styles from './AllPAge.css';
+import styles from './AllPage.css';
 import withStyles from '../../decorators/withStyles';
 import hexaCountStore from '../../stores/HexaCountStore';
 import countryCountStore from '../../stores/CountryCountStore.js';
