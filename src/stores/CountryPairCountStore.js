@@ -188,7 +188,7 @@ const store = assign({}, BaseStore, {
       return;
     }
     //console.log('Damn year', year)
-    return httpClient.get(_this.apiUrl() + '/api/country-pair/count/' + year)
+    return httpClient.get(_this.apiUrl() + '/api/countryPairs/citationCount/' + year)
       .then(function (data) {
         _data.year = year;
         //console.log(data)

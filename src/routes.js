@@ -4,6 +4,7 @@ import React from 'react';
 import Router from 'react-routing/src/Router';
 import http from './core/HttpClient';
 import App from './components/App';
+import InteractiveView from './components/InteractiveView';
 import HexaMapPage from './components/HexaMapPage';
 import AllPage from './components/AllPage';
 import CountryPage from './components/CountryPage';
@@ -27,20 +28,20 @@ const router = new Router(on => {
       ActionCreators.countryCount(2002);
       ActionCreators.countryPairsCount(2002);
     },200);
-    return <AllPage/>
+    return <InteractiveView><AllPage/></InteractiveView>
   });
   on('/hexamap', async () => {
     setTimeout(function(){ActionCreators.citationLocatedCountByHexagon(1, 2002);},200);
-    return <HexaMapPage/>
+    return <InteractiveView><HexaMapPage/></InteractiveView>
   });
   on('/country', async () => {
     setTimeout(function(){ActionCreators.countryCount(2002);},200);
-    return <CountryPage/>
+    return <InteractiveView><CountryPage/></InteractiveView>
   });
 
   on('/country-pairs', async () => {
     setTimeout(function(){ActionCreators.countryPairsCount(2002);},200);
-    return <CountryPairsPage/>
+    return <InteractiveView><CountryPairsPage/></InteractiveView>
   });
 
   on('/hexamap/:year', async (req) => {

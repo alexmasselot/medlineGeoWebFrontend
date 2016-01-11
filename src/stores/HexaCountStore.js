@@ -23,7 +23,7 @@ const store = assign({}, BaseStore, {
       if (this.countListener() === 0) {
         return;
       }
-      return httpClient.get(_this.apiUrl() + '/api/citation-located/countByHexagon/' + radius + '/' + year)
+      return httpClient.get(_this.apiUrl() + '/api/geoLoc/citationCountByHexagon/' + radius + '/' + year)
         .then(function (data) {
           _data.radius = radius;
           _data.year = year;

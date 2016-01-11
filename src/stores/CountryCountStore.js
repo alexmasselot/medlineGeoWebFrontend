@@ -23,7 +23,7 @@ const store = assign({}, BaseStore, {
     if (this.countListener() === 0) {
       return;
     }
-    return httpClient.get(_this.apiUrl() + '/api/country/count/' + year)
+    return httpClient.get(_this.apiUrl() + '/api/countries/citationCount/' + year)
       .then(function (data) {
         _data.year = year;
         _data.countryCount = data;

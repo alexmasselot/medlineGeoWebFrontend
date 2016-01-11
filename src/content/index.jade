@@ -3,26 +3,36 @@ title: medline geo
 component: ContentPage
 ---
 
-div.row
-  div.jumbotron.col-xs-offset-2
-    h2 Geo localizing Medline citations
-    div.
-      When and where are the scientific publications coming from? Which country are collaborating the most?
-      To investigate those questions, we focused on Medline, the major biology and biomedical peer reviewed citations repository.
-    div All details on method and source code can be found #[a(href='http://blog.octo.com/QQQ') here].
+div.container
+  div.row
+    div.jumbotron
+      h2 Geo localizing Medline citations
+      div.
+        When and where are the scientific publications coming from? Which country are collaborating the most?
+        To investigate those questions, we focused on Medline, the major biology and biomedical peer reviewed citations repository.
+      div All details on method and source code can be found #[a(href='http://blog.octo.com/QQQ') here].
 
-    h3  Browse the data!
-    div.row
-      div.col-sm-4
-        h4
-          a(href='/hexamap') per location
-        img(src='/images/snapshot-per-location.png', style={width: '100%'})
-      div.col-sm-4
-        h4
-          a(href='/country') per country
-        img(src='/images/snapshot-per-country.png', style={width: '100%'})
-      div.col-sm-4
-        h4
-          a(href='/country-pairs') collaborations
-        img(src='/images/snapshot-per-country-collaboration.png', style={width: '100%'})
+      h3  Browse the data!
+      div.row
+        div.col-sm-4.text-center
+          h4
+            a(href='/hexamap') per location
+          a(href='/hexamap')
+            img(src='/images/snapshot-per-location.png', style={width: '100%'})
+          div.
+            Where do the publications come from? A world heat map across the years.
+        div.col-sm-4.text-center
+          h4
+            a(href='/country') per country
+          a(href='/country')
+            img(src='/images/snapshot-per-country.png', style={width: '100%'})
+          div.
+            Which countries have the more prolific production of Medline literature?
+        div.col-sm-4.text-center
+          h4
+            a(href='/country-pairs') collaborations
+          a(href='/country-pairs')
+            img(src='/images/snapshot-per-country-collaboration.png', style={width: '100%'})
+          div.
+            Which countries do collaborate?
 
